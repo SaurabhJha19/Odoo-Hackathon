@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore - StackIt – A Minimal Q&A Forum Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="explore.css">
+</head>
+<body>
+    <div class="explore-container">
+        <!-- Header -->
+        <header class="explore-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <button class="back-btn" id="backBtn">
+                        <span>←</span>
+                    </button>
+                    <h1>Explore</h1>
+                </div>
+                <div class="header-right">
+                    <div class="search-container">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" placeholder="Search questions, tags, users..." class="search-input">
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="explore-main">
+            <!-- Trending Tags Section -->
+            <section class="trending-section">
+                <div class="section-header">
+                    <h2>🔥 Trending Topics</h2>
+                    <p>What's hot in the developer community</p>
+                </div>
+                <div class="trending-tags">
+                    <div class="trending-tag">
+                        <div class="tag-rank">#1</div>
+                        <div class="tag-info">
+                            <div class="tag-name">#javascript</div>
+                            <div class="tag-stats">2 questions • Trending</div>
+                        </div>
+                        <div class="tag-trend">📈 +1</div>
+                    </div>
+                    <div class="trending-tag">
+                        <div class="tag-rank">#2</div>
+                        <div class="tag-info">
+                            <div class="tag-name">#react</div>
+                            <div class="tag-stats">1 questions • Hot</div>
+                        </div>
+                        <div class="tag-trend">📈 +1</div>
+                    </div>
+                    <div class="trending-tag">
+                        <div class="tag-rank">#3</div>
+                        <div class="tag-info">
+                            <div class="tag-name">#python</div>
+                            <div class="tag-stats">2 questions • Rising</div>
+                        </div>
+                        <div class="tag-trend">📈 +1</div>
+                    </div>
+                    <div class="trending-tag">
+                        <div class="tag-rank">#4</div>
+                        <div class="tag-info">
+                            <div class="tag-name">#nodejs</div>
+                            <div class="tag-stats">1 questions • Trending</div>
+                        </div>
+                        <div class="tag-trend">📈 +1</div>
+                    </div>
+                    <div class="trending-tag">
+                        <div class="tag-rank">#5</div>
+                        <div class="tag-info">
+                            <div class="tag-name">#typescript</div>
+                            <div class="tag-stats">1 questions • Hot</div>
+                        </div>
+                        <div class="tag-trend">📈 +1</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Weekly Leaderboard Section -->
+            <section class="leaderboard-section">
+                <div class="section-header">
+                    <h2>🏆 Weekly Top Questions</h2>
+                    <p>Most upvoted questions this week</p>
+                </div>
+                <div class="leaderboard-list">
+                    <div class="leaderboard-item">
+                        <div class="rank-badge">1</div>
+                        <div class="question-info">
+                            <h3 class="question-title">
+                                <a href="#" onclick="openQuestion(1)">How to implement infinite scrolling in React with TypeScript?</a>
+                            </h3>
+                            <div class="question-meta">
+                                <span class="author">👤 Divyansh Nagpal</span>
+                                <span class="votes">👍 4 upvotes</span>
+                                <span class="time">1 hour ago</span>
+                            </div>
+                        </div>
+                        <div class="question-stats">
+                            <div class="stat">2 answers</div>
+                            <div class="stat">8 views</div>
+                        </div>
+                    </div>
+                    <div class="leaderboard-item">
+                        <div class="rank-badge">2</div>
+                        <div class="question-info">
+                            <h3 class="question-title">
+                                <a href="#" onclick="openQuestion(2)">Best practices for state management in large React applications?</a>
+                            </h3>
+                            <div class="question-meta">
+                                <span class="author">👤 Saurabh Jha</span>
+                                <span class="votes">👍 8 upvotes</span>
+                                <span class="time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="question-stats">
+                            <div class="stat">1 answers</div>
+                            <div class="stat">5 views</div>
+                        </div>
+                    </div>
+                    <div class="leaderboard-item">
+                        <div class="rank-badge">3</div>
+                        <div class="question-info">
+                            <h3 class="question-title">
+                                <a href="#" onclick="openQuestion(3)">How to optimize performance in Node.js applications?</a>
+                            </h3>
+                            <div class="question-meta">
+                                <span class="author">👤 Himnish Ahuja</span>
+                                <span class="votes">👍 6 upvotes</span>
+                                <span class="time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="question-stats">
+                            <div class="stat">1 answers</div>
+                            <div class="stat">4 views</div>
+                        </div>
+                    </div>
+                    <div class="leaderboard-item">
+                        <div class="rank-badge">4</div>
+                        <div class="question-info">
+                            <h3 class="question-title">
+                                <a href="#" onclick="openQuestion(4)">CSS Grid vs Flexbox: When to use which?</a>
+                            </h3>
+                            <div class="question-meta">
+                                <span class="author">👤 Divyansh Rai</span>
+                                <span class="votes">👍 2 upvotes</span>
+                                <span class="time">3 Hours ago</span>
+                            </div>
+                        </div>
+                        <div class="question-stats">
+                            <div class="stat">1 answers</div>
+                            <div class="stat">4 views</div>
+                        </div>
+                    </div>
+                    <div class="leaderboard-item">
+                        <div class="rank-badge">5</div>
+                        <div class="question-info">
+                            <h3 class="question-title">
+                                <a href="#" onclick="openQuestion(5)">How to implement authentication with JWT in Express.js?</a>
+                            </h3>
+                            <div class="question-meta">
+                                <span class="author">👤 Saharand Joshi</span>
+                                <span class="votes">👍 5 upvotes</span>
+                                <span class="time">3 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="question-stats">
+                            <div class="stat">2 answers</div>
+                            <div class="stat">9 views</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Random Feed Section -->
+            <section class="feed-section">
+                <div class="section-header">
+                    <h2>🎲 Discover Questions</h2>
+                    <p>Random questions from the community</p>
+                </div>
+                <div class="question-feed">
+                    <div class="question-item">
+                        <div class="question-stats">
+                            <div class="vote-container">
+                                <button class="vote-btn upvote-btn" data-question-id="6" data-vote="up">
+                                    <span class="vote-icon">▲</span>
+                                </button>
+                                <div class="vote-count" data-question-id="6">3</div>
+                                <button class="vote-btn downvote-btn" data-question-id="6" data-vote="down">
+                                    <span class="vote-icon">▼</span>
+                                </button>
+                            </div>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-number-small">2</div>
+                                    <div class="stat-label-small">answers</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number-small">4</div>
+                                    <div class="stat-label-small">views</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="question-content">
+                            <h3 class="question-title">
+                                <a href="#" onclick="openQuestion(6)">How to implement dark mode toggle in React with CSS variables?</a>
+                            </h3>
+                            <p class="question-excerpt">I want to add a dark mode toggle to my React app. What's the best way to implement this using CSS variables and React state?</p>
+                            <div class="question-tags">
+                                <a href="#" class="tag">react</a>
+                                <a href="#" class="tag">css</a>
+                                <a href="#" class="tag">dark-mode</a>
+                            </div>
+                            <div class="question-meta">
+                                <span class="question-author">👤 Ashmit Singh</span>
+                                <span class="question-time">4 hour ago</span>
+                                <button class="bookmark-btn" data-question-id="6" onclick="toggleBookmark(6)">
+                                    <span class="bookmark-icon"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <div class="question-stats">
+                            <div class="vote-container">
+                                <button class="vote-btn upvote-btn" data-question-id="6" data-vote="up">
+                                    <span class="vote-icon">▲</span>
+                                </button>
+                                <div class="vote-count" data-question-id="6">1</div>
+                                <button class="vote-btn downvote-btn" data-question-id="6" data-vote="down">
+                                    <span class="vote-icon">▼</span>
+                                </button>
+                            </div>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-number-small">1</div>
+                                    <div class="stat-label-small">answers</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number-small">2</div>
+                                    <div class="stat-label-small">views</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="question-content">
+                            <h3 class="question-title">
+                                <a href="#" onclick="openQuestion(7)">What are the differences between async/await and Promises in JavaScript?</a>
+                            </h3>
+                            <p class="question-excerpt">I'm learning about asynchronous JavaScript and I'm confused about when to use async/await vs Promises. Can someone explain the differences?</p>
+                            <div class="question-tags">
+                                <a href="#" class="tag">javascript</a>
+                                <a href="#" class="tag">async</a>
+                                <a href="#" class="tag">promises</a>
+                            </div>
+                            <div class="question-meta">
+                                <span class="question-author">👤 Janah Singh</span>
+                                <span class="question-time">4 hours ago</span>
+                                <button class="bookmark-btn" data-question-id="6" onclick="toggleBookmark(6)">
+                                    <span class="bookmark-icon"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-item">
+                        <div class="question-stats">
+                            <div class="vote-container">
+                                <button class="vote-btn upvote-btn" data-question-id="7" data-vote="up">
+                                    <span class="vote-icon">▲</span>
+                                </button>
+                                <div class="vote-count" data-question-id="7">1</div>
+                                <button class="vote-btn downvote-btn" data-question-id="7" data-vote="down">
+                                    <span class="vote-icon">▼</span>
+                                </button>
+                            </div>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-number-small">1</div>
+                                    <div class="stat-label-small">answers</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number-small">7</div>
+                                    <div class="stat-label-small">views</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="question-content">
+                            <h3 class="question-title">
+                                <a href="#" onclick="openQuestion(8)">How to deploy a React app to AWS S3 with GitHub Actions?</a>
+                            </h3>
+                            <p class="question-excerpt">I want to set up automated deployment for my React app to AWS S3 using GitHub Actions. What's the best way to configure this?</p>
+                            <div class="question-tags">
+                                <a href="#" class="tag">react</a>
+                                <a href="#" class="tag">aws</a>
+                                <a href="#" class="tag">github-actions</a>
+                                <a href="#" class="tag">deployment</a>
+                            </div>
+                            <div class="question-meta">
+                                <span class="question-author">👤 Arun</span>
+                                <span class="question-time">5 hours ago</span>
+                                <button class="bookmark-btn" data-question-id="7" onclick="toggleBookmark(7)">
+                                    <span class="bookmark-icon"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            if (localStorage.getItem('userLoggedIn') !== 'true') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Elements
+            const backBtn = document.getElementById('backBtn');
+            const searchInput = document.querySelector('.search-input');
+            const voteButtons = document.querySelectorAll('.vote-btn');
+            const voteCounts = document.querySelectorAll('.vote-count');
+
+            // Store user votes in localStorage
+            const userVotes = JSON.parse(localStorage.getItem('userVotes') || '{}');
+
+            // Initialize bookmark states
+            initializeBookmarkStates();
+
+            // Initialize vote states
+            function initializeVotes() {
+                voteButtons.forEach(btn => {
+                    const questionId = btn.dataset.questionId;
+                    const voteType = btn.dataset.vote;
+                    const userVote = userVotes[questionId];
+                    
+                    if (userVote === voteType) {
+                        btn.classList.add(`voted-${voteType}`);
+                    }
+                });
+            }
+
+            // Handle vote clicks
+            voteButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const questionId = this.dataset.questionId;
+                    const voteType = this.dataset.vote;
+                    const voteCount = document.querySelector(`[data-question-id="${questionId}"].vote-count`);
+                    const upvoteBtn = document.querySelector(`[data-question-id="${questionId}"][data-vote="up"]`);
+                    const downvoteBtn = document.querySelector(`[data-question-id="${questionId}"][data-vote="down"]`);
+                    
+                    let currentVote = userVotes[questionId];
+                    let currentCount = parseInt(voteCount.textContent);
+                    
+                    // Remove previous vote classes
+                    upvoteBtn.classList.remove('voted-up', 'voted-down');
+                    downvoteBtn.classList.remove('voted-up', 'voted-down');
+                    
+                    // Handle vote logic
+                    if (currentVote === voteType) {
+                        // User is clicking the same vote button - remove vote
+                        delete userVotes[questionId];
+                        if (voteType === 'up') {
+                            currentCount--;
+                        } else {
+                            currentCount++;
+                        }
+                    } else {
+                        // User is changing their vote or voting for the first time
+                        if (currentVote === 'up' && voteType === 'down') {
+                            currentCount -= 2;
+                        } else if (currentVote === 'down' && voteType === 'up') {
+                            currentCount += 2;
+                        } else if (voteType === 'up') {
+                            currentCount++;
+                        } else {
+                            currentCount--;
+                        }
+                        
+                        userVotes[questionId] = voteType;
+                        this.classList.add(`voted-${voteType}`);
+                    }
+                    
+                    // Update vote count
+                    voteCount.textContent = currentCount;
+                    
+                    // Update vote count color
+                    voteCount.classList.remove('positive', 'negative');
+                    if (currentCount > 0) {
+                        voteCount.classList.add('positive');
+                    } else if (currentCount < 0) {
+                        voteCount.classList.add('negative');
+                    }
+                    
+                    // Save user votes
+                    localStorage.setItem('userVotes', JSON.stringify(userVotes));
+                    
+                    console.log(`Voted ${voteType} on question ${questionId}, new count: ${currentCount}`);
+                });
+            });
+
+            // Initialize votes
+            initializeVotes();
+
+            // Bookmark functionality
+            function toggleBookmark(questionId) {
+                const bookmarkBtn = document.querySelector(`[data-question-id="${questionId}"].bookmark-btn`);
+                const questionItem = document.querySelector(`[data-question-id="${questionId}"].question-item`);
+                
+                if (bookmarkBtn.classList.contains('bookmarked')) {
+                    // Remove bookmark
+                    bookmarkBtn.classList.remove('bookmarked');
+                    if (questionItem) questionItem.classList.remove('bookmarked');
+                    removeBookmarkFromStorage(questionId);
+                    console.log('Bookmark removed for question:', questionId);
+                } else {
+                    // Add bookmark
+                    bookmarkBtn.classList.add('bookmarked');
+                    if (questionItem) questionItem.classList.add('bookmarked');
+                    addBookmarkToStorage(questionId);
+                    console.log('Bookmark added for question:', questionId);
+                }
+            }
+
+            function initializeBookmarkStates() {
+                const bookmarks = JSON.parse(localStorage.getItem('userBookmarks') || '[]');
+                bookmarks.forEach(bookmark => {
+                    const bookmarkBtn = document.querySelector(`[data-question-id="${bookmark.id}"].bookmark-btn`);
+                    const questionItem = document.querySelector(`[data-question-id="${bookmark.id}"].question-item`);
+                    if (bookmarkBtn) {
+                        bookmarkBtn.classList.add('bookmarked');
+                    }
+                    if (questionItem) {
+                        questionItem.classList.add('bookmarked');
+                    }
+                });
+            }
+
+            function addBookmarkToStorage(questionId) {
+                const bookmarks = JSON.parse(localStorage.getItem('userBookmarks') || '[]');
+                const questionData = getQuestionData(questionId);
+                if (questionData && !bookmarks.find(b => b.id === questionId)) {
+                    bookmarks.unshift({
+                        ...questionData,
+                        bookmarkedAt: new Date().toISOString()
+                    });
+                    localStorage.setItem('userBookmarks', JSON.stringify(bookmarks));
+                }
+            }
+
+            function removeBookmarkFromStorage(questionId) {
+                const bookmarks = JSON.parse(localStorage.getItem('userBookmarks') || '[]');
+                const filteredBookmarks = bookmarks.filter(b => b.id !== questionId);
+                localStorage.setItem('userBookmarks', JSON.stringify(filteredBookmarks));
+            }
+
+            function getQuestionData(questionId) {
+                // Sample question data for explore page questions
+                const questionsData = {
+                    5: {
+                        id: 5,
+                        title: "How to implement dark mode toggle in React with CSS variables?",
+                        author: "ui_dev",
+                        votes: 23,
+                        upvotes: 25,
+                        downvotes: 2,
+                        answers: 7,
+                        views: 456,
+                        tags: ["react", "css", "dark-mode"],
+                        time: "1 hour ago"
+                    },
+                    6: {
+                        id: 6,
+                        title: "What are the differences between async/await and Promises in JavaScript?",
+                        author: "js_learner",
+                        votes: 18,
+                        upvotes: 20,
+                        downvotes: 2,
+                        answers: 4,
+                        views: 234,
+                        tags: ["javascript", "async", "promises"],
+                        time: "3 hours ago"
+                    },
+                    7: {
+                        id: 7,
+                        title: "What are the differences between async/await and Promises in JavaScript?",
+                        author: "js_learner",
+                        votes: 18,
+                        upvotes: 20,
+                        downvotes: 2,
+                        answers: 4,
+                        views: 234,
+                        tags: ["javascript", "async", "promises"],
+                        time: "3 hours ago"
+                    },
+                    8: {
+                        id: 8,
+                        title: "How to deploy a React app to AWS S3 with GitHub Actions?",
+                        author: "devops_guru",
+                        votes: 31,
+                        upvotes: 35,
+                        downvotes: 4,
+                        answers: 11,
+                        views: 789,
+                        tags: ["react", "aws", "github-actions", "deployment"],
+                        time: "5 hours ago"
+                    }
+                };
+                return questionsData[questionId];
+            }
+
+            // Back button
+            backBtn.addEventListener('click', () => {
+                window.location.href = 'home.html';
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                console.log('Searching for:', this.value);
+                // Here you would implement search functionality
+            });
+
+            // Trending tag clicks
+            document.querySelectorAll('.trending-tag').forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const tagName = this.querySelector('.tag-name').textContent;
+                    console.log('Clicked trending tag:', tagName);
+                    // Here you would navigate to tag-specific page
+                });
+            });
+
+            // Leaderboard item clicks (disabled to prevent conflicts with openQuestion function)
+            // document.querySelectorAll('.leaderboard-item').forEach(item => {
+            //     item.addEventListener('click', function() {
+            //         const questionTitle = this.querySelector('.question-title').textContent;
+            //         console.log('Clicked leaderboard item:', questionTitle);
+            //         // Here you would navigate to question detail page
+            //     });
+            // });
+
+            // Question title clicks (disabled to prevent conflicts with openQuestion function)
+            // document.querySelectorAll('.question-title a').forEach(link => {
+            //     link.addEventListener('click', function(e) {
+            //         e.preventDefault();
+            //         console.log('Opening question:', this.textContent);
+            //         // Here you would navigate to question detail page
+            //     });
+            // });
+
+            // Tag clicks
+            document.querySelectorAll('.tag').forEach(tag => {
+                tag.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Filtering by tag:', this.textContent);
+                    // Here you would filter questions by tag
+                });
+            });
+
+            // Function to open question detail page
+            function openQuestion(questionId) {
+                console.log('Opening question:', questionId);
+                // Navigate to question detail page with referrer information
+                window.location.href = `question-detail.html?id=${questionId}&from=explore`;
+            }
+        });
+    </script>
+</body>
+</html> 

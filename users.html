@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users - StackIt Q&A Forum Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="users.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">StackIt</a>
+            
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="Search users...">
+            </div>
+
+            <div class="header-actions">
+                <button class="notification-bell" id="notificationBtn">
+                    🔔
+                    <span class="notification-badge">3</span>
+                </button>
+                
+                <!-- Notification Panel -->
+                <div class="notification-panel" id="notificationPanel">
+                    <div class="notification-header">
+                        <h3>Notifications</h3>
+                        <button class="close-notifications" id="closeNotifications">×</button>
+                    </div>
+                    <div class="notification-list" id="notificationList">
+                        <!-- Notifications will be populated here -->
+                    </div>
+                    <div class="notification-footer">
+                        <a href="#" class="mark-all-read">Mark all as read</a>
+                    </div>
+                </div>
+                <a href="ask-question.html" class="btn-primary">
+                    ➕ Ask Question
+                </a>
+                <button class="btn-secondary" id="logoutBtn">Logout</button>
+                <div style="width: 32px; height: 32px; background: #7c1cdc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px;" id="userAvatar">👤</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <a href="#" class="sidebar-item active">
+                <span class="sidebar-item-icon">🏠</span>
+                Home
+            </a>
+            <a href="explore.html" class="sidebar-item">
+                <span class="sidebar-item-icon">🔍</span>
+                Explore
+                <span class="sidebar-item-count">16</span>
+            </a>
+            <a href="leaderboard.html" class="sidebar-item">
+                <span class="sidebar-item-icon">🏆</span>
+                Leaderboard
+                <span class="sidebar-item-count">5</span>
+            </a>
+            <a href="users.html" class="sidebar-item">
+                <span class="sidebar-item-icon">👥</span>
+                Users  Directory 
+                <span class="sidebar-item-count">12</span>
+            </a>
+            <a href="bookmarks.html" class="sidebar-item">
+                <span class="sidebar-item-icon">🔖</span>
+                Bookmarks
+            </a>
+
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Trending Tags</div>
+                <a href="#" class="tag-item">#javascript</a>
+                <a href="#" class="tag-item">#react</a>
+                <a href="#" class="tag-item">#typescript</a>
+                <a href="#" class="tag-item">#python</a>
+                <a href="#" class="tag-item">#node.js</a>
+            </div>
+
+
+        </aside>
+
+        <main class="main-content">
+            <div class="stats-grid" style="padding: 20px; background: #fff; border-radius: 25px; margin: 0;">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalUsers">0</div>
+                    <div class="stat-label">Total Users</div>
+                    <div class="stat-change positive">
+                        📈 +1
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalQuestions">0</div>
+                    <div class="stat-label">Total Questions</div>
+                    <div class="stat-change positive">
+                        📈 +12%
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalVotes">0</div>
+                    <div class="stat-label">Total Votes</div>
+                    <div class="stat-change positive">
+                        📈 +8%
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Active Today</div>
+                    <div class="stat-change positive">
+                        📈 +3%
+                    </div>
+                </div>
+            </div>
+
+            <div class="questions-header">
+                <div>
+                    <h2 class="questions-title">All Users</h2>
+                    <p class="questions-subtitle" id="userCount">12 users</p>
+                </div>
+                <div class="questions-controls">
+                    <div class="questions-search">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" placeholder="Search users..." id="userSearch">
+                    </div>
+                    <select class="sort-dropdown" id="sortBy">
+                        <option value="questions">Most Questions</option>
+                        <option value="votes">Most Votes</option>
+                        <option value="username">Username A-Z</option>
+                        <option value="recent">Recently Active</option>
+                    </select>
+                    <select class="sort-dropdown" id="filterBy">
+                        <option value="all">All Users</option>
+                        <option value="active">Active Users</option>
+                        <option value="top">Top Contributors</option>
+                        <option value="new">New Users</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="users-list" id="usersContainer">
+                <!-- Users will be dynamically loaded here -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-container">
+                <div class="pagination-info">
+                    Showing <span id="startIndex">1</span> - <span id="endIndex">8</span> of <span id="totalUsersCount">12</span> users
+                </div>
+                <div class="pagination" id="pagination">
+                    <button class="pagination-btn" id="prevPage" disabled>
+                        <span>←</span>
+                        Previous
+                    </button>
+                    <div class="pagination-pages" id="pageNumbers">
+                        <!-- Page numbers will be generated here -->
+                    </div>
+                    <button class="pagination-btn" id="nextPage">
+                        Next
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Sample user data
+        const users = [
+            {
+                id: 1,
+                username: "divyansh",
+                displayName: "Divyansh",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=alex",
+                questions: 1,
+                votes: 5,
+                joinedDate: "2023-01-15",
+                lastActive: "2025-06-12",
+                reputation: 8,
+                tags: ["JavaScript", "React", "Node.js"]
+            },
+            {
+                id: 2,
+                username: "sarah_coder",
+                displayName: "Sarah Chen",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sarah",
+                questions: 32,
+                votes: 987,
+                joinedDate: "2023-03-22",
+                lastActive: "2024-01-19",
+                reputation: 7200,
+                tags: ["Python", "Django", "Machine Learning"]
+            },
+            {
+                id: 3,
+                username: "mike_tech",
+                displayName: "Mike Rodriguez",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=mike",
+                questions: 67,
+                votes: 2156,
+                joinedDate: "2022-11-08",
+                lastActive: "2024-01-21",
+                reputation: 12000,
+                tags: ["Java", "Spring", "Microservices"]
+            },
+            {
+                id: 4,
+                username: "emma_web",
+                displayName: "Emma Wilson",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=emma",
+                questions: 28,
+                votes: 756,
+                joinedDate: "2023-06-14",
+                lastActive: "2024-01-18",
+                reputation: 5400,
+                tags: ["HTML", "CSS", "JavaScript"]
+            },
+            {
+                id: 5,
+                username: "david_ai",
+                displayName: "David Kim",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=david",
+                questions: 89,
+                votes: 3421,
+                joinedDate: "2022-08-30",
+                lastActive: "2024-01-21",
+                reputation: 15800,
+                tags: ["Python", "TensorFlow", "AI/ML"]
+            },
+            {
+                id: 6,
+                username: "lisa_mobile",
+                displayName: "Lisa Thompson",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=lisa",
+                questions: 41,
+                votes: 1123,
+                joinedDate: "2023-02-11",
+                lastActive: "2024-01-20",
+                reputation: 7800,
+                tags: ["Swift", "iOS", "Mobile Development"]
+            },
+            {
+                id: 7,
+                username: "tom_devops",
+                displayName: "Tom Anderson",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=tom",
+                questions: 53,
+                votes: 1890,
+                joinedDate: "2022-12-05",
+                lastActive: "2024-01-19",
+                reputation: 9200,
+                tags: ["Docker", "Kubernetes", "AWS"]
+            },
+            {
+                id: 8,
+                username: "anna_data",
+                displayName: "Anna Martinez",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=anna",
+                questions: 36,
+                votes: 945,
+                joinedDate: "2023-04-18",
+                lastActive: "2024-01-17",
+                reputation: 6500,
+                tags: ["SQL", "Data Science", "Pandas"]
+            },
+            {
+                id: 9,
+                username: "chris_fullstack",
+                displayName: "Chris Lee",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=chris",
+                questions: 74,
+                votes: 2678,
+                joinedDate: "2022-09-25",
+                lastActive: "2024-01-21",
+                reputation: 13500,
+                tags: ["React", "Node.js", "MongoDB"]
+            },
+            {
+                id: 10,
+                username: "jessica_ui",
+                displayName: "Jessica Brown",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=jessica",
+                questions: 29,
+                votes: 678,
+                joinedDate: "2023-07-03",
+                lastActive: "2024-01-16",
+                reputation: 4800,
+                tags: ["UI/UX", "Figma", "Design Systems"]
+            },
+            {
+                id: 11,
+                username: "ryan_backend",
+                displayName: "Ryan Davis",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=ryan",
+                questions: 62,
+                votes: 1987,
+                joinedDate: "2022-10-12",
+                lastActive: "2024-01-20",
+                reputation: 11000,
+                tags: ["C#", ".NET", "SQL Server"]
+            },
+            {
+                id: 12,
+                username: "sophia_cloud",
+                displayName: "Sophia Garcia",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sophia",
+                questions: 38,
+                votes: 1156,
+                joinedDate: "2023-05-20",
+                lastActive: "2024-01-18",
+                reputation: 7200,
+                tags: ["AWS", "Serverless", "Lambda"]
+            }
+        ];
+
+        let currentPage = 1;
+        const usersPerPage = 8;
+        let filteredUsers = [...users];
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStats();
+            renderUsers();
+            setupEventListeners();
+        });
+
+        function updateStats() {
+            document.getElementById('totalUsers').textContent = users.length;
+            const totalQuestions = users.reduce((sum, user) => sum + user.questions, 0);
+            const totalVotes = users.reduce((sum, user) => sum + user.votes, 0);
+            
+            document.getElementById('totalQuestions').textContent = totalQuestions.toLocaleString();
+            document.getElementById('totalVotes').textContent = totalVotes.toLocaleString();
+            document.getElementById('userCount').textContent = `${users.length} users`;
+        }
+
+        function renderUsers() {
+            const container = document.getElementById('usersContainer');
+            const startIndex = (currentPage - 1) * usersPerPage;
+            const endIndex = startIndex + usersPerPage;
+            const pageUsers = filteredUsers.slice(startIndex, endIndex);
+
+            container.innerHTML = pageUsers.map(user => `
+                <div class="user-item">
+                    <div class="user-stats">
+                        <div class="user-avatar">
+                            <img src="${user.avatar}" alt="${user.displayName}" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=default'">
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-number-small">${user.questions}</div>
+                                <div class="stat-label-small">questions</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number-small">${user.votes.toLocaleString()}</div>
+                                <div class="stat-label-small">votes</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-content">
+                        <h3 class="user-title">
+                            <a href="#">${user.displayName}</a>
+                        </h3>
+                        <p class="user-username">@${user.username}</p>
+                        <div class="user-reputation">
+                            <span class="reputation-score">⭐ ${user.reputation.toLocaleString()} reputation</span>
+                            <span class="join-date">Joined ${formatDate(user.joinedDate)}</span>
+                        </div>
+                        <div class="user-tags">
+                            ${user.tags.slice(0, 3).map(tag => `<a href="#" class="tag">${tag}</a>`).join('')}
+                            ${user.tags.length > 3 ? `<span class="tag more">+${user.tags.length - 3}</span>` : ''}
+                        </div>
+                        <div class="user-meta">
+                            <span class="user-last-active">Last active ${formatDate(user.lastActive)}</span>
+                            <button class="btn-secondary">Follow</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            renderPagination();
+            updatePaginationInfo();
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+            const pageNumbers = document.getElementById('pageNumbers');
+            const prevBtn = document.getElementById('prevPage');
+            const nextBtn = document.getElementById('nextPage');
+
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+
+            let paginationHTML = '';
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+
+            if (startPage > 1) {
+                paginationHTML += `<button class="pagination-btn" data-page="1">1</button>`;
+                if (startPage > 2) {
+                    paginationHTML += `<span class="pagination-ellipsis">...</span>`;
+                }
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                paginationHTML += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+            }
+
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    paginationHTML += `<span class="pagination-ellipsis">...</span>`;
+                }
+                paginationHTML += `<button class="pagination-btn" data-page="${totalPages}">${totalPages}</button>`;
+            }
+
+            pageNumbers.innerHTML = paginationHTML;
+        }
+
+        function updatePaginationInfo() {
+            const startIndex = (currentPage - 1) * usersPerPage + 1;
+            const endIndex = Math.min(currentPage * usersPerPage, filteredUsers.length);
+            
+            document.getElementById('startIndex').textContent = startIndex;
+            document.getElementById('endIndex').textContent = endIndex;
+            document.getElementById('totalUsersCount').textContent = filteredUsers.length;
+        }
+
+        function setupEventListeners() {
+            // Search functionality
+            document.getElementById('userSearch').addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                filteredUsers = users.filter(user => 
+                    user.displayName.toLowerCase().includes(searchTerm) ||
+                    user.username.toLowerCase().includes(searchTerm) ||
+                    user.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                );
+                currentPage = 1;
+                renderUsers();
+            });
+
+            // Sorting
+            document.getElementById('sortBy').addEventListener('change', function(e) {
+                const sortBy = e.target.value;
+                filteredUsers.sort((a, b) => {
+                    switch(sortBy) {
+                        case 'questions':
+                            return b.questions - a.questions;
+                        case 'votes':
+                            return b.votes - a.votes;
+                        case 'username':
+                            return a.username.localeCompare(b.username);
+                        case 'recent':
+                            return new Date(b.lastActive) - new Date(a.lastActive);
+                        default:
+                            return 0;
+                    }
+                });
+                currentPage = 1;
+                renderUsers();
+            });
+
+            // Filtering
+            document.getElementById('filterBy').addEventListener('change', function(e) {
+                const filterBy = e.target.value;
+                switch(filterBy) {
+                    case 'active':
+                        filteredUsers = users.filter(user => {
+                            const lastActive = new Date(user.lastActive);
+                            const weekAgo = new Date();
+                            weekAgo.setDate(weekAgo.getDate() - 7);
+                            return lastActive > weekAgo;
+                        });
+                        break;
+                    case 'top':
+                        filteredUsers = users.filter(user => user.reputation >= 10000);
+                        break;
+                    case 'new':
+                        filteredUsers = users.filter(user => {
+                            const joinedDate = new Date(user.joinedDate);
+                            const monthAgo = new Date();
+                            monthAgo.setMonth(monthAgo.getMonth() - 1);
+                            return joinedDate > monthAgo;
+                        });
+                        break;
+                    default:
+                        filteredUsers = [...users];
+                }
+                currentPage = 1;
+                renderUsers();
+            });
+
+            // Pagination
+            document.getElementById('prevPage').addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderUsers();
+                }
+            });
+
+            document.getElementById('nextPage').addEventListener('click', function() {
+                const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderUsers();
+                }
+            });
+
+            // Page number clicks
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('pagination-btn') && e.target.dataset.page) {
+                    currentPage = parseInt(e.target.dataset.page);
+                    renderUsers();
+                }
+            });
+
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                localStorage.removeItem('userLoggedIn');
+                window.location.href = 'login.html';
+            });
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) return 'Today';
+            if (diffDays <= 7) return `${diffDays} days ago`;
+            if (diffDays <= 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+            if (diffDays <= 365) return `${Math.floor(diffDays / 30)} months ago`;
+            return `${Math.floor(diffDays / 365)} years ago`;
+        }
+
+        // Notification Panel Functionality
+        const notificationBtn = document.getElementById('notificationBtn');
+        const notificationPanel = document.getElementById('notificationPanel');
+        const closeNotifications = document.getElementById('closeNotifications');
+        const notificationList = document.getElementById('notificationList');
+
+        // Sample notification data
+        const notifications = [
+            {
+                id: 1,
+                type: 'answer',
+                text: '<strong>sarah_coder</strong> answered your question about React hooks',
+                time: '2 minutes ago',
+                unread: true
+            },
+            {
+                id: 2,
+                type: 'vote',
+                text: 'Your answer received <strong>+5 upvotes</strong>',
+                time: '15 minutes ago',
+                unread: true
+            },
+            {
+                id: 3,
+                type: 'mention',
+                text: '<strong>mike_tech</strong> mentioned you in a comment',
+                time: '1 hour ago',
+                unread: true
+            },
+            {
+                id: 4,
+                type: 'follow',
+                text: '<strong>alex_dev</strong> started following you',
+                time: '2 hours ago',
+                unread: false
+            },
+            {
+                id: 5,
+                type: 'answer',
+                text: '<strong>emma_web</strong> answered your question about CSS Grid',
+                time: '3 hours ago',
+                unread: false
+            }
+        ];
+
+        // Render notifications
+        function renderNotifications() {
+            if (notifications.length === 0) {
+                notificationList.innerHTML = `
+                    <div class="notification-empty">
+                        <div class="empty-icon">🔔</div>
+                        <p>No notifications yet</p>
+                    </div>
+                `;
+                return;
+            }
+
+            notificationList.innerHTML = notifications.map(notification => `
+                <div class="notification-item ${notification.unread ? 'unread' : ''}" data-id="${notification.id}">
+                    <div class="notification-icon ${notification.type}">
+                        ${getNotificationIcon(notification.type)}
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-text">${notification.text}</div>
+                        <div class="notification-time">${notification.time}</div>
+                    </div>
+                    ${notification.unread ? '<div class="notification-unread"></div>' : ''}
+                </div>
+            `).join('');
+        }
+
+        // Get notification icon based on type
+        function getNotificationIcon(type) {
+            switch(type) {
+                case 'answer': return '💬';
+                case 'vote': return '👍';
+                case 'mention': return '@';
+                case 'follow': return '👥';
+                default: return '🔔';
+            }
+        }
+
+        // Update notification badge count
+        function updateNotificationBadge() {
+            const unreadCount = notifications.filter(n => n.unread).length;
+            const badge = notificationBtn.querySelector('.notification-badge');
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // Toggle notification panel
+        notificationBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            notificationPanel.classList.toggle('show');
+            renderNotifications();
+        });
+
+        // Close notification panel
+        closeNotifications.addEventListener('click', function(e) {
+            e.stopPropagation();
+            notificationPanel.classList.remove('show');
+        });
+
+        // Close panel when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!notificationPanel.contains(e.target) && !notificationBtn.contains(e.target)) {
+                notificationPanel.classList.remove('show');
+            }
+        });
+
+        // Mark notification as read
+        notificationList.addEventListener('click', function(e) {
+            const notificationItem = e.target.closest('.notification-item');
+            if (notificationItem) {
+                const notificationId = parseInt(notificationItem.dataset.id);
+                const notification = notifications.find(n => n.id === notificationId);
+                if (notification && notification.unread) {
+                    notification.unread = false;
+                    notificationItem.classList.remove('unread');
+                    notificationItem.querySelector('.notification-unread')?.remove();
+                    updateNotificationBadge();
+                }
+            }
+        });
+
+        // Mark all as read
+        document.querySelector('.mark-all-read').addEventListener('click', function(e) {
+            e.preventDefault();
+            notifications.forEach(notification => {
+                notification.unread = false;
+            });
+            renderNotifications();
+            updateNotificationBadge();
+        });
+
+        // Initialize notifications
+        renderNotifications();
+        updateNotificationBadge();
+    </script>
+</body>
+</html> 

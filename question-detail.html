@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Detail - StackIt – A Minimal Q&A Forum Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .question-detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .back-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 25px;
+            border: 1px solid #e1e5e9;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            margin-right: 15px;
+            transition: background 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .question-main {
+            background: white;
+            border-radius: 25px;
+            border: 1px solid #e1e5e9;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-header {
+            padding: 20px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .question-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .question-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .question-author {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            background: #7c1cdc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .question-stats {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 20px;
+            background: white;
+            border-bottom: 1px solid #e1e5e9;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 6px;
+            color: #666;
+            font-size: 14px;
+            padding: 6px 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #e1e5e9;
+            min-width: 80px;
+        }
+
+        .stat-number {
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .question-content {
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .question-description {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #333;
+            margin-bottom: 25px;
+            flex: 1;
+        }
+
+        .question-description p {
+            margin-bottom: 15px;
+        }
+
+        .question-description ul, .question-description ol {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+
+        .question-description li {
+            margin-bottom: 8px;
+        }
+
+        .question-description pre {
+            background: #f8f9fa;
+            border: 1px solid #e1e5e9;
+            border-radius: 6px;
+            padding: 15px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .question-description code {
+            background: #f1f3f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+        }
+
+        .question-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            border: 1px solid #bbdefb;
+        }
+
+        .tag:hover {
+            background: #bbdefb;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(25, 118, 210, 0.2);
+        }
+
+        .vote-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 25px;
+            border: 1px solid #e1e5e9;
+            min-width: 80px;
+            height: fit-content;
+        }
+
+        .vote-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vote-btn {
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 16px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vote-btn:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+
+        .vote-btn.voted-up {
+            background: #dcfce7;
+            border-color: #22c55e;
+            color: #16a34a;
+        }
+
+        .vote-btn.voted-down {
+            background: #fef2f2;
+            border-color: #ef4444;
+            color: #dc2626;
+        }
+
+        .vote-count {
+            font-weight: 600;
+            font-size: 18px;
+            text-align: center;
+            color: #333;
+            min-height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vote-count.positive {
+            color: #16a34a;
+        }
+
+        .vote-count.negative {
+            color: #dc2626;
+        }
+
+        .bookmark-btn {
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 16px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bookmark-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .bookmark-btn.bookmarked {
+            background: #fef2f2;
+            border-color: #ef4444;
+            color: #dc2626;
+        }
+
+        .answers-section {
+            background: white;
+            border-radius: 25px;
+            border: 1px solid #e1e5e9;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .answers-header {
+            padding: 20px;
+            border-bottom: 1px solid #e1e5e9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .answers-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .answers-count {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .answer-item {
+            padding: 20px;
+            border-bottom: 1px solid #f3f4f6;
+            transition: background-color 0.2s ease;
+        }
+
+        .answer-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .answer-item:last-child {
+            border-bottom: none;
+        }
+
+        .answer-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .answer-author {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .answer-time {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .answer-content {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .answer-votes {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .answer-vote-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .answer-vote-btn {
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 6px 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 12px;
+            min-width: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .answer-vote-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .answer-vote-btn.voted-up {
+            background: #dcfce7;
+            border-color: #22c55e;
+            color: #16a34a;
+        }
+
+        .answer-vote-btn.voted-down {
+            background: #fef2f2;
+            border-color: #ef4444;
+            color: #dc2626;
+        }
+
+        .answer-vote-count {
+            font-weight: 600;
+            font-size: 14px;
+            min-width: 30px;
+            text-align: center;
+            color: #333;
+        }
+
+        .no-answers {
+            padding: 40px 20px;
+            text-align: center;
+            color: #666;
+        }
+
+        .no-answers-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .add-answer-section {
+            background: white;
+            border-radius: 25px;
+            border: 1px solid #e1e5e9;
+            margin-top: 20px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .add-answer-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .answer-input {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 25px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            margin-bottom: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: #7c1cdc;
+            box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+        }
+
+        .submit-answer-btn {
+            background: #7c1cdc;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .submit-answer-btn:hover {
+            background: #3367d6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(66, 133, 244, 0.3);
+        }
+
+        .submit-answer-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        @media (max-width: 768px) {
+            .question-detail-container {
+                padding: 15px;
+            }
+            
+            .question-title {
+                font-size: 20px;
+            }
+            
+            .question-stats {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .question-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .vote-controls {
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                min-width: auto;
+                width: 100%;
+            }
+            
+            .vote-container {
+                flex-direction: row;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="question-detail-container">
+        <!-- Back Header -->
+        <div class="back-header">
+            <button class="back-btn" id="backBtn">
+                <span>←</span>
+            </button>
+            <h1>Question Detail</h1>
+        </div>
+
+        <!-- Question Main Content -->
+        <div class="question-main">
+            <div class="question-header">
+                <h1 class="question-title" id="questionTitle">Loading...</h1>
+                <div class="question-meta">
+                    <div class="question-author">
+                        <div class="author-avatar" id="authorAvatar">👤</div>
+                        <span id="authorName">Loading...</span>
+                    </div>
+                    <span id="questionTime">Loading...</span>
+                </div>
+            </div>
+
+            <div class="question-stats">
+                <div class="stat-item">
+                    <span>👁️</span>
+                    <span class="stat-number" id="viewCount">0</span>
+                    <span>views</span>
+                </div>
+                <div class="stat-item">
+                    <span>💬</span>
+                    <span class="stat-number" id="answerCount">0</span>
+                    <span>answers</span>
+                </div>
+                <div class="stat-item">
+                    <span>📊</span>
+                    <span class="stat-number" id="voteCount">0</span>
+                    <span>votes</span>
+                </div>
+            </div>
+
+            <div class="question-content">
+                <div class="question-description" id="questionDescription">
+                    Loading question description...
+                </div>
+                <div class="vote-controls">
+                    <div class="vote-container">
+                        <button class="vote-btn upvote-btn" id="upvoteBtn" data-vote="up">
+                            <span>▲</span>
+                        </button>
+                        <div class="vote-count" id="voteCountDisplay">0</div>
+                        <button class="vote-btn downvote-btn" id="downvoteBtn" data-vote="down">
+                            <span>▼</span>
+                        </button>
+                    </div>
+                    <button class="bookmark-btn" id="bookmarkBtn">
+                        <span>📖</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="question-tags" id="questionTags">
+                <!-- Tags will be populated here -->
+            </div>
+        </div>
+
+        <!-- Answers Section -->
+        <div class="answers-section">
+            <div class="answers-header">
+                <h2 class="answers-title">Answers</h2>
+                <span class="answers-count" id="answersCount">0 answers</span>
+            </div>
+            <div id="answersList">
+                <!-- Answers will be populated here -->
+            </div>
+        </div>
+
+        <!-- Add Answer Section -->
+        <div class="add-answer-section">
+            <h3 class="add-answer-title">Your Answer</h3>
+            <textarea class="answer-input" id="answerInput" placeholder="Write your answer here..."></textarea>
+            <button class="submit-answer-btn" id="submitAnswerBtn">Post Answer</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            if (localStorage.getItem('userLoggedIn') !== 'true') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Get question ID and referrer from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const questionId = urlParams.get('id');
+            const fromPage = urlParams.get('from') || 'home';
+
+            if (!questionId) {
+                alert('No question ID provided');
+                window.location.href = 'home.html';
+                return;
+            }
+
+            // Load question data
+            loadQuestionData(questionId, fromPage);
+
+            // Back button functionality
+            document.getElementById('backBtn').addEventListener('click', () => {
+                // Navigate back to the page user came from
+                switch (fromPage) {
+                    case 'explore':
+                        window.location.href = 'explore.html';
+                        break;
+                    case 'leaderboard':
+                        window.location.href = 'leaderboard.html';
+                        break;
+                    case 'bookmarks':
+                        window.location.href = 'bookmarks.html';
+                        break;
+                    case 'users':
+                        window.location.href = 'users.html';
+                        break;
+                    default:
+                        window.location.href = 'home.html';
+                        break;
+                }
+            });
+
+            // Voting functionality
+            const upvoteBtn = document.getElementById('upvoteBtn');
+            const downvoteBtn = document.getElementById('downvoteBtn');
+            const voteCountDisplay = document.getElementById('voteCountDisplay');
+
+            upvoteBtn.addEventListener('click', () => handleVote('up'));
+            downvoteBtn.addEventListener('click', () => handleVote('down'));
+
+            // Bookmark functionality
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            bookmarkBtn.addEventListener('click', () => toggleBookmark());
+
+            // Submit answer functionality
+            const submitAnswerBtn = document.getElementById('submitAnswerBtn');
+            const answerInput = document.getElementById('answerInput');
+
+            submitAnswerBtn.addEventListener('click', () => submitAnswer());
+        });
+
+        function loadQuestionData(questionId, fromPage = 'home') {
+            // Get question data from the comprehensive data structure
+            const questionData = getQuestionData(questionId);
+            
+            if (!questionData) {
+                alert('Question not found');
+                // Navigate back to the page user came from
+                switch (fromPage) {
+                    case 'explore':
+                        window.location.href = 'explore.html';
+                        break;
+                    case 'leaderboard':
+                        window.location.href = 'leaderboard.html';
+                        break;
+                    case 'bookmarks':
+                        window.location.href = 'bookmarks.html';
+                        break;
+                    case 'users':
+                        window.location.href = 'users.html';
+                        break;
+                    default:
+                        window.location.href = 'home.html';
+                        break;
+                }
+                return;
+            }
+
+            // Populate question details
+            document.getElementById('questionTitle').textContent = questionData.title;
+            document.getElementById('authorName').textContent = questionData.author;
+            document.getElementById('authorAvatar').textContent = questionData.author.charAt(0).toUpperCase();
+            document.getElementById('questionTime').textContent = questionData.time;
+            document.getElementById('questionDescription').innerHTML = questionData.description || 'No description available.';
+            document.getElementById('viewCount').textContent = questionData.views.toLocaleString();
+            document.getElementById('answerCount').textContent = questionData.answers;
+            document.getElementById('voteCount').textContent = questionData.votes;
+            document.getElementById('voteCountDisplay').textContent = questionData.votes;
+            document.getElementById('answersCount').textContent = `${questionData.answers} answer${questionData.answers !== 1 ? 's' : ''}`;
+
+            // Populate tags
+            const tagsContainer = document.getElementById('questionTags');
+            tagsContainer.innerHTML = '';
+            questionData.tags.forEach(tag => {
+                const tagElement = document.createElement('a');
+                tagElement.href = '#';
+                tagElement.className = 'tag';
+                tagElement.textContent = tag;
+                tagsContainer.appendChild(tagElement);
+            });
+
+            // Load answers
+            loadAnswers(questionId);
+
+            // Initialize vote states
+            initializeVoteStates(questionId);
+
+            // Initialize bookmark state
+            initializeBookmarkState(questionId);
+
+            // Update page title
+            document.title = `${questionData.title} - StackIt – A Minimal Q&A Forum Platform`;
+        }
+
+        function getQuestionData(questionId) {
+            // Comprehensive question data for all pages
+            const allQuestionsData = {
+                // Home page questions
+                1: {
+                    id: 1,
+                    title: "How to implement user authentication in React with TypeScript?",
+                    author: "john_dev",
+                    votes: 15,
+                    upvotes: 18,
+                    downvotes: 3,
+                    answers: 3,
+                    views: 1200,
+                    tags: ["react", "typescript", "authentication"],
+                    time: "2 hours ago",
+                    description: `
+                        <p>I'm building a React application with TypeScript and need to implement user authentication. I want to handle login, logout, and protect certain routes.</p>
+                        
+                        <p>Here's what I'm trying to achieve:</p>
+                        <ul>
+                            <li>User registration and login forms</li>
+                            <li>JWT token management</li>
+                            <li>Protected routes that require authentication</li>
+                            <li>User profile management</li>
+                            <li>Logout functionality</li>
+                        </ul>
+                        
+                        <p>I've been looking at libraries like Auth0, Firebase Auth, and custom JWT implementations. What would be the best approach for a production React + TypeScript app?</p>
+                        
+                        <p>Here's my current setup:</p>
+                        <pre><code>// App.tsx
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+function App() {
+  return (
+    &lt;Router&gt;
+      &lt;Switch&gt;
+        &lt;Route path="/login" component={Login} /&gt;
+        &lt;Route path="/dashboard" component={Dashboard} /&gt;
+        &lt;Route path="/" component={Home} /&gt;
+      &lt;/Switch&gt;
+    &lt;/Router&gt;
+  );
+}</code></pre>
+                        
+                        <p>Any help or guidance would be greatly appreciated!</p>
+                    `
+                },
+                2: {
+                    id: 2,
+                    title: "Best practices for state management in large React applications?",
+                    author: "sarah_frontend",
+                    votes: 8,
+                    upvotes: 10,
+                    downvotes: 2,
+                    answers: 2,
+                    views: 567,
+                    tags: ["react", "state-management", "redux", "context"],
+                    time: "4 hours ago",
+                    description: `
+                        <p>I'm working on a large React app and struggling with state management. Should I use Redux, Context API, or something else?</p>
+                        
+                        <p>The app has multiple features:</p>
+                        <ul>
+                            <li>User authentication and profiles</li>
+                            <li>Real-time data updates</li>
+                            <li>Complex form handling</li>
+                            <li>File uploads and media management</li>
+                            <li>Dashboard with multiple widgets</li>
+                        </ul>
+                        
+                        <p>I'm currently using Context API but finding it hard to manage as the app grows. The state updates are causing unnecessary re-renders and the code is becoming hard to maintain.</p>
+                        
+                        <p>What are the best practices for scaling state management in React applications?</p>
+                    `
+                },
+                3: {
+                    id: 3,
+                    title: "How to optimize performance in Node.js applications?",
+                    author: "mike_backend",
+                    votes: 12,
+                    upvotes: 15,
+                    downvotes: 3,
+                    answers: 5,
+                    views: 890,
+                    tags: ["node.js", "performance", "optimization"],
+                    time: "6 hours ago",
+                    description: `
+                        <p>My Node.js API is running slowly under load. What are the best practices for optimizing performance?</p>
+                        
+                        <p>Current issues I'm facing:</p>
+                        <ul>
+                            <li>Slow database queries</li>
+                            <li>Memory leaks</li>
+                            <li>High CPU usage</li>
+                            <li>Slow response times under load</li>
+                        </ul>
+                        
+                        <p>I'm using Express.js with MongoDB and Redis for caching. The application handles user authentication, file uploads, and real-time notifications.</p>
+                        
+                        <p>What tools and techniques should I use to profile and optimize the performance?</p>
+                    `
+                },
+                4: {
+                    id: 4,
+                    title: "CSS Grid vs Flexbox: When to use which?",
+                    author: "alex_designer",
+                    votes: 6,
+                    upvotes: 8,
+                    downvotes: 2,
+                    answers: 4,
+                    views: 445,
+                    tags: ["css", "grid", "flexbox", "layout"],
+                    time: "8 hours ago",
+                    description: `
+                        <p>I'm confused about when to use CSS Grid versus Flexbox. Can someone explain the differences and use cases?</p>
+                        
+                        <p>I understand that:</p>
+                        <ul>
+                            <li>Flexbox is for 1-dimensional layouts (row or column)</li>
+                            <li>Grid is for 2-dimensional layouts (rows and columns)</li>
+                        </ul>
+                        
+                        <p>But I'm still not sure when to choose one over the other. For example:</p>
+                        <ul>
+                            <li>Navigation menus</li>
+                            <li>Card layouts</li>
+                            <li>Form layouts</li>
+                            <li>Dashboard grids</li>
+                        </ul>
+                        
+                        <p>Can someone provide clear examples and guidelines?</p>
+                    `
+                },
+                5: {
+                    id: 5,
+                    title: "How to implement authentication with JWT in Express.js?",
+                    author: "dev_security",
+                    votes: 25,
+                    upvotes: 28,
+                    downvotes: 3,
+                    answers: 9,
+                    views: 980,
+                    tags: ["express.js", "jwt", "authentication", "node.js"],
+                    time: "6 days ago",
+                    description: `
+                        <p>I'm building a REST API with Express.js and need to implement JWT-based authentication. I want to understand the best practices for JWT implementation.</p>
+                        
+                        <p>Key requirements:</p>
+                        <ul>
+                            <li>User registration and login endpoints</li>
+                            <li>JWT token generation and validation</li>
+                            <li>Middleware for protecting routes</li>
+                            <li>Token refresh mechanism</li>
+                            <li>Secure token storage</li>
+                        </ul>
+                        
+                        <p>I'm using the jsonwebtoken library and bcrypt for password hashing. Here's my current setup:</p>
+                        
+                        <pre><code>const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
+// JWT secret
+const JWT_SECRET = process.env.JWT_SECRET;
+
+// Generate token
+const generateToken = (userId) => {
+  return jwt.sign({ userId }, JWT_SECRET, { expiresIn: '24h' });
+};
+
+// Verify token middleware
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  
+  if (!token) {
+    return res.sendStatus(401);
+  }
+  
+  jwt.verify(token, JWT_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+};</code></pre>
+                        
+                        <p>Is this approach secure? What improvements should I make?</p>
+                    `
+                },
+                6: {
+                    id: 6,
+                    title: "How to implement dark mode toggle in React with CSS variables?",
+                    author: "ui_dev",
+                    votes: 23,
+                    upvotes: 25,
+                    downvotes: 2,
+                    answers: 7,
+                    views: 456,
+                    tags: ["react", "css", "dark-mode"],
+                    time: "1 hour ago",
+                    description: `
+                        <p>I want to add a dark mode toggle to my React app. What's the best way to implement this using CSS variables and React state?</p>
+                        
+                        <p>I'm looking for a solution that:</p>
+                        <ul>
+                            <li>Uses CSS custom properties (variables)</li>
+                            <li>Persists the user's preference</li>
+                            <li>Provides smooth transitions</li>
+                            <li>Works with existing components</li>
+                        </ul>
+                        
+                        <p>Here's my current CSS setup:</p>
+                        
+                        <pre><code>:root {
+  --primary-color: #007bff;
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --border-color: #e1e5e9;
+}
+
+[data-theme="dark"] {
+  --primary-color: #4dabf7;
+  --background-color: #1a1a1a;
+  --text-color: #ffffff;
+  --border-color: #404040;
+}</code></pre>
+                        
+                        <p>How should I implement the React component to toggle between themes?</p>
+                    `
+                },
+                7: {
+                    id: 7,
+                    title: "What are the differences between async/await and Promises in JavaScript?",
+                    author: "js_learner",
+                    votes: 18,
+                    upvotes: 20,
+                    downvotes: 2,
+                    answers: 4,
+                    views: 234,
+                    tags: ["javascript", "async", "promises"],
+                    time: "3 hours ago",
+                    description: `
+                        <p>I'm learning about asynchronous JavaScript and I'm confused about when to use async/await vs Promises. Can someone explain the differences?</p>
+                        
+                        <p>I understand that async/await is syntactic sugar over Promises, but I'm not sure about the practical differences:</p>
+                        
+                        <h4>Promise approach:</h4>
+                        <pre><code>fetch('/api/data')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    return fetch('/api/more-data');
+  })
+  .then(response => response.json())
+  .then(moreData => {
+    console.log(moreData);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });</code></pre>
+                        
+                        <h4>Async/await approach:</h4>
+                        <pre><code>async function fetchData() {
+  try {
+    const response = await fetch('/api/data');
+    const data = await response.json();
+    console.log(data);
+    
+    const moreResponse = await fetch('/api/more-data');
+    const moreData = await moreResponse.json();
+    console.log(moreData);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}</code></pre>
+                        
+                        <p>When should I use each approach? Are there performance differences?</p>
+                    `
+                },
+                8: {
+                    id: 8,
+                    title: "How to deploy a React app to AWS S3 with GitHub Actions?",
+                    author: "devops_guru",
+                    votes: 31,
+                    upvotes: 35,
+                    downvotes: 4,
+                    answers: 11,
+                    views: 789,
+                    tags: ["react", "aws", "github-actions", "deployment"],
+                    time: "5 hours ago",
+                    description: `
+                        <p>I want to set up automated deployment for my React app to AWS S3 using GitHub Actions. What's the best way to configure this?</p>
+                        
+                        <p>My current setup includes:</p>
+                        <ul>
+                            <li>React app built with Create React App</li>
+                            <li>AWS S3 bucket for hosting</li>
+                            <li>CloudFront distribution for CDN</li>
+                            <li>GitHub repository with main branch</li>
+                        </ul>
+                        
+                        <p>I want to automate the deployment process so that every push to the main branch triggers a build and deployment to S3.</p>
+                        
+                        <p>Here's what I'm looking for:</p>
+                        <ul>
+                            <li>GitHub Actions workflow configuration</li>
+                            <li>AWS credentials setup</li>
+                            <li>Build optimization for production</li>
+                            <li>Cache invalidation for CloudFront</li>
+                            <li>Error handling and rollback strategies</li>
+                        </ul>
+                        
+                        <p>Should I use the AWS CLI or the AWS GitHub Actions? What's the most secure way to handle AWS credentials?</p>
+                    `
+                }
+            };
+            
+            return allQuestionsData[questionId] || {
+                id: questionId,
+                title: `Question ${questionId}`,
+                author: "user_" + questionId,
+                votes: Math.floor(Math.random() * 50) + 1,
+                upvotes: Math.floor(Math.random() * 60) + 1,
+                downvotes: Math.floor(Math.random() * 10),
+                answers: Math.floor(Math.random() * 10) + 1,
+                views: Math.floor(Math.random() * 1000) + 100,
+                tags: ["general", "question"],
+                time: "recently",
+                description: `<p>This is a sample question description for question ${questionId}.</p>`
+            };
+        }
+
+        function loadAnswers(questionId) {
+            const answersList = document.getElementById('answersList');
+            const questionData = getQuestionData(questionId);
+            
+            if (questionData.answers === 0) {
+                answersList.innerHTML = `
+                    <div class="no-answers">
+                        <div class="no-answers-icon">💬</div>
+                        <p>No answers yet. Be the first to answer this question!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Sample answers data
+            const answers = [
+                {
+                    id: 1,
+                    author: "react_expert",
+                    content: "For React authentication with TypeScript, I recommend using a combination of React Context and custom hooks. Here's a complete example...",
+                    time: "1 hour ago",
+                    votes: 5
+                },
+                {
+                    id: 2,
+                    author: "auth_guru",
+                    content: "I've been using Auth0 for production apps and it's been great. It handles all the security concerns and provides excellent TypeScript support...",
+                    time: "30 minutes ago",
+                    votes: 3
+                },
+                {
+                    id: 3,
+                    author: "typescript_dev",
+                    content: "Here's a custom JWT implementation that works well with TypeScript. Make sure to handle token refresh properly...",
+                    time: "15 minutes ago",
+                    votes: 2
+                }
+            ];
+
+            answersList.innerHTML = answers.map(answer => `
+                <div class="answer-item" data-answer-id="${answer.id}">
+                    <div class="answer-header">
+                        <span class="answer-author">👤 ${answer.author}</span>
+                        <span class="answer-time">${answer.time}</span>
+                    </div>
+                    <div class="answer-content">${answer.content}</div>
+                    <div class="answer-votes">
+                        <div class="answer-vote-container">
+                            <button class="answer-vote-btn upvote-btn" data-answer-id="${answer.id}" data-vote="up">
+                                <span>▲</span>
+                            </button>
+                            <div class="answer-vote-count">${answer.votes}</div>
+                            <button class="answer-vote-btn downvote-btn" data-answer-id="${answer.id}" data-vote="down">
+                                <span>▼</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Add event listeners for answer votes
+            document.querySelectorAll('.answer-vote-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const answerId = this.dataset.answerId;
+                    const voteType = this.dataset.vote;
+                    handleAnswerVote(answerId, voteType);
+                });
+            });
+        }
+
+        function handleVote(voteType) {
+            const questionId = new URLSearchParams(window.location.search).get('id');
+            const upvoteBtn = document.getElementById('upvoteBtn');
+            const downvoteBtn = document.getElementById('downvoteBtn');
+            const voteCountDisplay = document.getElementById('voteCountDisplay');
+            
+            let currentVote = localStorage.getItem(`questionVote_${questionId}`);
+            let currentCount = parseInt(voteCountDisplay.textContent);
+            
+            // Remove previous vote classes
+            upvoteBtn.classList.remove('voted-up', 'voted-down');
+            downvoteBtn.classList.remove('voted-up', 'voted-down');
+            
+            // Handle vote logic
+            if (currentVote === voteType) {
+                // User is clicking the same vote button - remove vote
+                localStorage.removeItem(`questionVote_${questionId}`);
+                if (voteType === 'up') {
+                    currentCount--;
+                } else {
+                    currentCount++;
+                }
+            } else {
+                // User is changing their vote or voting for the first time
+                if (currentVote === 'up' && voteType === 'down') {
+                    currentCount -= 2;
+                } else if (currentVote === 'down' && voteType === 'up') {
+                    currentCount += 2;
+                } else if (voteType === 'up') {
+                    currentCount++;
+                } else {
+                    currentCount--;
+                }
+                
+                localStorage.setItem(`questionVote_${questionId}`, voteType);
+                event.target.closest('.vote-btn').classList.add(`voted-${voteType}`);
+            }
+            
+            // Update vote count
+            voteCountDisplay.textContent = currentCount;
+            document.getElementById('voteCount').textContent = currentCount;
+            
+            // Update vote count color
+            voteCountDisplay.classList.remove('positive', 'negative');
+            if (currentCount > 0) {
+                voteCountDisplay.classList.add('positive');
+            } else if (currentCount < 0) {
+                voteCountDisplay.classList.add('negative');
+            }
+        }
+
+        function handleAnswerVote(answerId, voteType) {
+            const answerItem = document.querySelector(`[data-answer-id="${answerId}"]`);
+            const upvoteBtn = answerItem.querySelector('.upvote-btn');
+            const downvoteBtn = answerItem.querySelector('.downvote-btn');
+            const voteCount = answerItem.querySelector('.answer-vote-count');
+            
+            let currentVote = localStorage.getItem(`answerVote_${answerId}`);
+            let currentCount = parseInt(voteCount.textContent);
+            
+            // Remove previous vote classes
+            upvoteBtn.classList.remove('voted-up', 'voted-down');
+            downvoteBtn.classList.remove('voted-up', 'voted-down');
+            
+            // Handle vote logic
+            if (currentVote === voteType) {
+                // User is clicking the same vote button - remove vote
+                localStorage.removeItem(`answerVote_${answerId}`);
+                if (voteType === 'up') {
+                    currentCount--;
+                } else {
+                    currentCount++;
+                }
+            } else {
+                // User is changing their vote or voting for the first time
+                if (currentVote === 'up' && voteType === 'down') {
+                    currentCount -= 2;
+                } else if (currentVote === 'down' && voteType === 'up') {
+                    currentCount += 2;
+                } else if (voteType === 'up') {
+                    currentCount++;
+                } else {
+                    currentCount--;
+                }
+                
+                localStorage.setItem(`answerVote_${answerId}`, voteType);
+                event.target.closest('.answer-vote-btn').classList.add(`voted-${voteType}`);
+            }
+            
+            // Update vote count
+            voteCount.textContent = currentCount;
+        }
+
+        function toggleBookmark() {
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            const questionId = new URLSearchParams(window.location.search).get('id');
+            
+            if (bookmarkBtn.classList.contains('bookmarked')) {
+                // Remove bookmark
+                bookmarkBtn.classList.remove('bookmarked');
+                removeBookmarkFromStorage(questionId);
+                console.log('Bookmark removed for question:', questionId);
+            } else {
+                // Add bookmark
+                bookmarkBtn.classList.add('bookmarked');
+                addBookmarkToStorage(questionId);
+                console.log('Bookmark added for question:', questionId);
+            }
+        }
+
+        function addBookmarkToStorage(questionId) {
+            const bookmarks = JSON.parse(localStorage.getItem('userBookmarks') || '[]');
+            const questionData = getQuestionData(questionId);
+            if (questionData && !bookmarks.find(b => b.id === parseInt(questionId))) {
+                bookmarks.unshift({
+                    ...questionData,
+                    bookmarkedAt: new Date().toISOString()
+                });
+                localStorage.setItem('userBookmarks', JSON.stringify(bookmarks));
+            }
+        }
+
+        function removeBookmarkFromStorage(questionId) {
+            const bookmarks = JSON.parse(localStorage.getItem('userBookmarks') || '[]');
+            const filteredBookmarks = bookmarks.filter(b => b.id !== parseInt(questionId));
+            localStorage.setItem('userBookmarks', JSON.stringify(filteredBookmarks));
+        }
+
+        function initializeVoteStates(questionId) {
+            const userVote = localStorage.getItem(`questionVote_${questionId}`);
+            if (userVote) {
+                const voteBtn = document.querySelector(`[data-vote="${userVote}"]`);
+                if (voteBtn) {
+                    voteBtn.classList.add(`voted-${userVote}`);
+                }
+            }
+        }
+
+        function initializeBookmarkState(questionId) {
+            const bookmarks = JSON.parse(localStorage.getItem('userBookmarks') || '[]');
+            const isBookmarked = bookmarks.find(b => b.id === parseInt(questionId));
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            
+            if (isBookmarked) {
+                bookmarkBtn.classList.add('bookmarked');
+            }
+        }
+
+        function submitAnswer() {
+            const answerInput = document.getElementById('answerInput');
+            const submitBtn = document.getElementById('submitAnswerBtn');
+            const answer = answerInput.value.trim();
+            
+            if (!answer) {
+                alert('Please enter your answer');
+                return;
+            }
+            
+            // Disable submit button and show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Posting...';
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Add answer to the list
+                const answersList = document.getElementById('answersList');
+                const noAnswers = answersList.querySelector('.no-answers');
+                
+                if (noAnswers) {
+                    noAnswers.remove();
+                }
+                
+                const newAnswer = `
+                    <div class="answer-item" data-answer-id="new">
+                        <div class="answer-header">
+                            <span class="answer-author">👤 You</span>
+                            <span class="answer-time">just now</span>
+                        </div>
+                        <div class="answer-content">${answer}</div>
+                        <div class="answer-votes">
+                            <div class="answer-vote-container">
+                                <button class="answer-vote-btn upvote-btn" data-answer-id="new" data-vote="up">
+                                    <span>▲</span>
+                                </button>
+                                <div class="answer-vote-count">0</div>
+                                <button class="answer-vote-btn downvote-btn" data-answer-id="new" data-vote="down">
+                                    <span>▼</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                answersList.insertAdjacentHTML('afterbegin', newAnswer);
+                
+                // Clear input and reset button
+                answerInput.value = '';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Post Answer';
+                
+                // Update answer count
+                const answerCount = document.getElementById('answerCount');
+                const answersCount = document.getElementById('answersCount');
+                const currentCount = parseInt(answerCount.textContent) + 1;
+                answerCount.textContent = currentCount;
+                answersCount.textContent = `${currentCount} answer${currentCount !== 1 ? 's' : ''}`;
+                
+                // Add event listeners to new answer
+                const newAnswerElement = answersList.firstElementChild;
+                newAnswerElement.querySelectorAll('.answer-vote-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const answerId = this.dataset.answerId;
+                        const voteType = this.dataset.vote;
+                        handleAnswerVote(answerId, voteType);
+                    });
+                });
+                
+                console.log('Answer posted successfully');
+            }, 1000);
+        }
+    </script>
+</body>
+</html> 

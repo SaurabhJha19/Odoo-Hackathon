@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StackIt – A Minimal Q&A Forum Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">StackIt</a>
+            
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="Global Search - Search anything">
+            </div>
+
+            <div class="header-actions">
+                <button class="notification-bell" id="notificationBtn">
+                    🔔
+                    <span class="notification-badge">3</span>
+                </button>
+                
+                <!-- Notification Panel -->
+                <div class="notification-panel" id="notificationPanel">
+                    <div class="notification-header">
+                        <h3>Notifications</h3>
+                        <button class="close-notifications" id="closeNotifications">×</button>
+                    </div>
+                    <div class="notification-list" id="notificationList">
+                        <!-- Notifications will be populated here -->
+                    </div>
+                    <div class="notification-footer">
+                        <a href="#" class="mark-all-read">Mark all as read</a>
+                    </div>
+                </div>
+                <a href="#" class="btn-primary">
+                    ➕ Ask Question
+                </a>
+                <button class="btn-secondary" id="logoutBtn">Logout</button>
+                <div style="width: 32px; height: 32px; background: #7c1cdc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px;" id="userAvatar">👤</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <a href="#" class="sidebar-item active">
+                <span class="sidebar-item-icon">🏠</span>
+                Home
+            </a>
+            <a href="explore.html" class="sidebar-item">
+                <span class="sidebar-item-icon">🔍</span>
+                Explore
+                <span class="sidebar-item-count">16</span>
+            </a>
+            <a href="leaderboard.html" class="sidebar-item">
+                <span class="sidebar-item-icon">🏆</span>
+                Leaderboard
+                <span class="sidebar-item-count">5</span>
+            </a>
+            <a href="users.html" class="sidebar-item">
+                <span class="sidebar-item-icon">👥</span>
+                Users  Directory 
+                <span class="sidebar-item-count">12</span>
+            </a>
+            <a href="bookmarks.html" class="sidebar-item">
+                <span class="sidebar-item-icon">🔖</span>
+                Bookmarks
+            </a>
+
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Trending Tags</div>
+                <a href="#" class="tag-item">#javascript</a>
+                <a href="#" class="tag-item">#react</a>
+                <a href="#" class="tag-item">#typescript</a>
+                <a href="#" class="tag-item">#python</a>
+                <a href="#" class="tag-item">#node.js</a>
+            </div>
+
+
+        </aside>
+
+        <main class="main-content">
+            <div class="stats-grid" style="padding: 30px; background: #fff; border-radius: 25px; margin:  0;">
+                <div class="stat-card">
+                    <div class="stat-number">16</div>
+                    <div class="stat-label">Questions</div>
+                    <div class="stat-change positive">
+                        📈 +2
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">9</div>
+                    <div class="stat-label">Answers</div>
+                    <div class="stat-change positive">
+                        📈 +3
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Users</div>
+                    <div class="stat-change positive">
+                        📈 +1
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Tags</div>
+                    <div class="stat-change positive">
+                        📈 +2
+                    </div>
+                </div>
+            </div>
+
+            <div class="questions-header">
+                <div>
+                    <h2 class="questions-title">All Questions</h2>
+                    <p class="questions-subtitle">16 questions</p>
+                </div>
+                <div class="questions-controls">
+                    <div class="questions-search">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" placeholder="Search questions...">
+                    </div>
+                    <select class="sort-dropdown">
+                        <option>Newest</option>
+                        <option>Oldest</option>
+                        <option>Most Voted</option>
+                        <option>Most Answered</option>
+                    </select>
+                    <button class="filter-btn">🔽 All</button>
+                </div>
+            </div>
+
+            <div class="questions-list">
+                <div class="question-item" data-question-id="1" data-time="2" data-votes="15" data-answers="3">
+                    <div class="question-stats">
+                        <div class="vote-container">
+                            <button class="vote-btn upvote-btn" data-question-id="1" data-vote="up">
+                                <span class="vote-icon">▲</span>
+                            </button>
+                            <div class="vote-count" data-question-id="1">4</div>
+                            <button class="vote-btn downvote-btn" data-question-id="1" data-vote="down">
+                                <span class="vote-icon">▼</span>
+                            </button>
+                        </div>
+                        <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number-small">2</div>
+                            <div class="stat-label-small">answers</div>
+                        </div>
+                        <div class="stat-item">
+                                <div class="stat-number-small">8</div>
+                            <div class="stat-label-small">views</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question-content">
+                        <h3 class="question-title">
+                            <a href="#">How to implement user authentication in React with TypeScript?</a>
+                        </h3>
+                        <p class="question-excerpt">I'm building a React application with TypeScript and need to implement user authentication. I want to handle login, logout, and protect certain routes...</p>
+                        <div class="question-tags">
+                            <a href="#" class="tag">react</a>
+                            <a href="#" class="tag">typescript</a>
+                            <a href="#" class="tag">authentication</a>
+                        </div>
+                        <div class="question-meta">
+                            <span class="question-author">👤 Divyansh Nagpal</span>
+                            <span class="question-time">1 hours ago</span>
+                            <button class="bookmark-btn" data-question-id="1" onclick="toggleBookmark(1)">
+                                <span class="bookmark-icon"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-item" data-question-id="2" data-time="4" data-votes="8" data-answers="2">
+                    <div class="question-stats">
+                        <div class="vote-container">
+                            <button class="vote-btn upvote-btn" data-question-id="2" data-vote="up">
+                                <span class="vote-icon">▲</span>
+                            </button>
+                            <div class="vote-count" data-question-id="2">8</div>
+                            <button class="vote-btn downvote-btn" data-question-id="2" data-vote="down">
+                                <span class="vote-icon">▼</span>
+                            </button>
+                        </div>
+                        <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number-small">1</div>
+                            <div class="stat-label-small">answers</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number-small">5</div>
+                            <div class="stat-label-small">views</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question-content">
+                        <h3 class="question-title">
+                            <a href="#">Best practices for state management in large React applications?</a>
+                        </h3>
+                        <p class="question-excerpt">I'm working on a large React app and struggling with state management. Should I use Redux, Context API, or something else?</p>
+                        <div class="question-tags">
+                            <a href="#" class="tag">react</a>
+                            <a href="#" class="tag">state-management</a>
+                            <a href="#" class="tag">redux</a>
+                            <a href="#" class="tag">context</a>
+                        </div>
+                        <div class="question-meta">
+                            <span class="question-author">👤 Saurabh Jha</span>
+                            <span class="question-time">2 hours ago</span>
+                            <button class="bookmark-btn" data-question-id="2" onclick="toggleBookmark(2)">
+                                <span class="bookmark-icon"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-item" data-question-id="3" data-time="6" data-votes="12" data-answers="5">
+                    <div class="question-stats">
+                        <div class="vote-container">
+                            <button class="vote-btn upvote-btn" data-question-id="3" data-vote="up">
+                                <span class="vote-icon">▲</span>
+                            </button>
+                            <div class="vote-count" data-question-id="3">6</div>
+                            <button class="vote-btn downvote-btn" data-question-id="3" data-vote="down">
+                                <span class="vote-icon">▼</span>
+                            </button>
+                        </div>
+                        <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number-small">1</div>
+                            <div class="stat-label-small">answers</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number-small">10</div>
+                            <div class="stat-label-small">views</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question-content">
+                        <h3 class="question-title">
+                            <a href="#">How to optimize performance in Node.js applications?</a>
+                        </h3>
+                        <p class="question-excerpt">My Node.js API is running slowly under load. What are the best practices for optimizing performance?</p>
+                        <div class="question-tags">
+                            <a href="#" class="tag">node.js</a>
+                            <a href="#" class="tag">performance</a>
+                            <a href="#" class="tag">optimization</a>
+                        </div>
+                        <div class="question-meta">
+                            <span class="question-author">👤 Himnish Ahuja</span>
+                            <span class="question-time">2 hours ago</span>
+                            <button class="bookmark-btn" data-question-id="3" onclick="toggleBookmark(3)">
+                                <span class="bookmark-icon"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-item" data-question-id="4" data-time="8" data-votes="6" data-answers="4">
+                    <div class="question-stats">
+                        <div class="vote-container">
+                            <button class="vote-btn upvote-btn" data-question-id="4" data-vote="up">
+                                <span class="vote-icon">▲</span>
+                            </button>
+                            <div class="vote-count" data-question-id="4">2</div>
+                            <button class="vote-btn downvote-btn" data-question-id="4" data-vote="down">
+                                <span class="vote-icon">▼</span>
+                            </button>
+                        </div>
+                        <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number-small">1</div>
+                            <div class="stat-label-small">answers</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number-small">4</div>
+                            <div class="stat-label-small">views</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question-content">
+                        <h3 class="question-title">
+                            <a href="#">CSS Grid vs Flexbox: When to use which?</a>
+                        </h3>
+                        <p class="question-excerpt">I'm confused about when to use CSS Grid versus Flexbox. Can someone explain the differences and use cases?</p>
+                        <div class="question-tags">
+                            <a href="#" class="tag">css</a>
+                            <a href="#" class="tag">grid</a>
+                            <a href="#" class="tag">flexbox</a>
+                            <a href="#" class="tag">layout</a>
+                        </div>
+                        <div class="question-meta">
+                            <span class="question-author">👤 Divyansh Rai</span>
+                            <span class="question-time">3 hours ago</span>
+                            <button class="bookmark-btn" data-question-id="4" onclick="toggleBookmark(4)">
+                                <span class="bookmark-icon"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination Section -->
+            <div class="pagination-container">
+                <div class="pagination">
+                    <button class="pagination-btn prev-btn" disabled>
+                        <span>←</span>
+                        Previous
+                    </button>
+                    <div class="pagination-pages">
+                        <button class="pagination-btn page-btn active">1</button>
+                        <button class="pagination-btn page-btn">2</button>
+                        <button class="pagination-btn page-btn">3</button>
+                        <span class="pagination-ellipsis">...</span>
+                        <button class="pagination-btn page-btn">5</button>
+                    </div>
+                    <button class="pagination-btn next-btn">
+                        Next
+                        <span>→</span>
+                    </button>
+                </div>
+                <div class="pagination-info">
+                    <span>Showing 1-5 of 16 questions</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Basic JavaScript functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Global search functionality (header search bar)
+            const globalSearchInput = document.querySelector('.search-input');
+            if (globalSearchInput) {
+                globalSearchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    console.log('Global search for:', searchTerm);
+                    
+                    // Global search - search for users, questions, tags, etc.
+                    if (searchTerm.length > 0) {
+                        // Here you would implement global search functionality
+                        // Search across:
+                        // - Users (usernames, profiles)
+                        // - Questions (titles, content, tags)
+                        // - Tags
+                        // - Answers
+                        console.log('Performing global search for:', searchTerm);
+                        
+                        // Example: You could show a dropdown with search results
+                        // or navigate to a search results page
+                        // showGlobalSearchResults(searchTerm);
+                    }
+                });
+                
+                // Handle global search submission
+                globalSearchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const searchTerm = this.value.trim();
+                        if (searchTerm) {
+                            console.log('Submitting global search for:', searchTerm);
+                            // Navigate to search results page or show results
+                            // window.location.href = `search.html?q=${encodeURIComponent(searchTerm)}`;
+                        }
+                    }
+                });
+            }
+
+            // Questions-only search functionality (questions section search bar)
+            const questionsSearchInput = document.querySelector('.questions-search input');
+            if (questionsSearchInput) {
+                questionsSearchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    console.log('Questions search for:', searchTerm);
+                    
+                    // Questions-only search - only search through questions/statements
+                    if (searchTerm.length > 0) {
+                        let visibleCount = 0;
+                        // Filter questions based on search term
+                        const questionItems = document.querySelectorAll('.question-item');
+                        questionItems.forEach(item => {
+                            const title = item.querySelector('.question-title a').textContent.toLowerCase();
+                            const excerpt = item.querySelector('.question-excerpt').textContent.toLowerCase();
+                            const tags = Array.from(item.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+                            const author = item.querySelector('.question-author').textContent.toLowerCase();
+                            
+                            const matches = title.includes(searchTerm) || 
+                                          excerpt.includes(searchTerm) || 
+                                          tags.some(tag => tag.includes(searchTerm)) ||
+                                          author.includes(searchTerm);
+                            
+                            if (matches) {
+                                item.style.display = 'flex';
+                                visibleCount++;
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+                        
+                        // Update question count immediately
+                        const questionsSubtitle = document.querySelector('.questions-subtitle');
+                        if (questionsSubtitle) {
+                            if (visibleCount === 1) {
+                                questionsSubtitle.textContent = '1 question';
+                            } else {
+                                questionsSubtitle.textContent = `${visibleCount} questions`;
+                            }
+                        }
+                        
+                        console.log(`Search results: ${visibleCount} questions found`);
+                    } else {
+                        // Show all questions when search is cleared
+                        let visibleCount = 0;
+                        const questionItems = document.querySelectorAll('.question-item');
+                        questionItems.forEach(item => {
+                            item.style.display = 'flex';
+                            visibleCount++;
+                        });
+                        
+                        // Update question count immediately
+                        const questionsSubtitle = document.querySelector('.questions-subtitle');
+                        if (questionsSubtitle) {
+                            if (visibleCount === 1) {
+                                questionsSubtitle.textContent = '1 question';
+                            } else {
+                                questionsSubtitle.textContent = `${visibleCount} questions`;
+                            }
+                        }
+                        
+                        console.log(`Search cleared: ${visibleCount} questions visible`);
+                    }
+                });
+            }
+
+            // Sort dropdown functionality
+            const sortDropdown = document.querySelector('.sort-dropdown');
+            if (sortDropdown) {
+                sortDropdown.addEventListener('change', function() {
+                    const sortBy = this.value;
+                    console.log('Sorting by:', sortBy);
+                    sortQuestions(sortBy);
+                });
+            }
+
+            // Filter button functionality
+            const filterBtn = document.querySelector('.filter-btn');
+            if (filterBtn) {
+                filterBtn.addEventListener('click', function() {
+                    toggleTagFilter();
+                });
+            }
+
+            // Tag filtering functionality
+            function toggleTagFilter() {
+                const filterBtn = document.querySelector('.filter-btn');
+                const currentFilter = filterBtn.textContent.replace('🔽 ', '').replace('🔼 ', '');
+                
+                if (currentFilter === 'All') {
+                    // Show tag filter dropdown
+                    showTagFilterDropdown();
+                } else {
+                    // Clear filter
+                    clearTagFilter();
+                }
+            }
+
+            function showTagFilterDropdown() {
+                // Remove existing dropdown if any
+                const existingDropdown = document.querySelector('.tag-filter-dropdown');
+                if (existingDropdown) {
+                    existingDropdown.remove();
+                }
+
+                // Get all unique tags from questions
+                const allTags = new Set();
+                document.querySelectorAll('.question-item').forEach(item => {
+                    const tags = Array.from(item.querySelectorAll('.tag')).map(tag => tag.textContent);
+                    tags.forEach(tag => allTags.add(tag));
+                });
+
+                // Create dropdown
+                const dropdown = document.createElement('div');
+                dropdown.className = 'tag-filter-dropdown';
+                dropdown.style.cssText = `
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    background: white;
+                    border: 1px solid #e1e5e9;
+                    border-radius: 6px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    min-width: 150px;
+                    max-height: 200px;
+                    overflow-y: auto;
+                `;
+
+                // Add "All" option
+                const allOption = document.createElement('div');
+                allOption.className = 'filter-option';
+                allOption.textContent = 'All';
+                allOption.style.cssText = `
+                    padding: 10px 15px;
+                    cursor: pointer;
+                    border-bottom: 1px solid #f3f4f6;
+                    transition: background 0.2s ease;
+                `;
+                allOption.addEventListener('click', () => {
+                    clearTagFilter();
+                    dropdown.remove();
+                });
+                allOption.addEventListener('mouseenter', () => {
+                    allOption.style.background = '#f8f9fa';
+                });
+                allOption.addEventListener('mouseleave', () => {
+                    allOption.style.background = 'white';
+                });
+                dropdown.appendChild(allOption);
+
+                // Add tag options
+                Array.from(allTags).sort().forEach(tag => {
+                    const option = document.createElement('div');
+                    option.className = 'filter-option';
+                    option.textContent = tag;
+                    option.style.cssText = `
+                        padding: 10px 15px;
+                        cursor: pointer;
+                        border-bottom: 1px solid #f3f4f6;
+                        transition: background 0.2s ease;
+                    `;
+                    option.addEventListener('click', () => {
+                        filterByTag(tag);
+                        dropdown.remove();
+                    });
+                    option.addEventListener('mouseenter', () => {
+                        option.style.background = '#f8f9fa';
+                    });
+                    option.addEventListener('mouseleave', () => {
+                        option.style.background = 'white';
+                    });
+                    dropdown.appendChild(option);
+                });
+
+                // Position dropdown relative to filter button
+                const filterBtn = document.querySelector('.filter-btn');
+                filterBtn.style.position = 'relative';
+                filterBtn.appendChild(dropdown);
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function closeDropdown(e) {
+                    if (!filterBtn.contains(e.target)) {
+                        dropdown.remove();
+                        document.removeEventListener('click', closeDropdown);
+                    }
+                });
+            }
+
+            function filterByTag(selectedTag) {
+                const filterBtn = document.querySelector('.filter-btn');
+                filterBtn.textContent = `🔼 ${selectedTag}`;
+                
+                let visibleCount = 0;
+                document.querySelectorAll('.question-item').forEach(item => {
+                    const tags = Array.from(item.querySelectorAll('.tag')).map(tag => tag.textContent);
+                    if (tags.includes(selectedTag)) {
+                        item.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // Update question count immediately
+                const questionsSubtitle = document.querySelector('.questions-subtitle');
+                if (questionsSubtitle) {
+                    if (visibleCount === 1) {
+                        questionsSubtitle.textContent = '1 question';
+                    } else {
+                        questionsSubtitle.textContent = `${visibleCount} questions`;
+                    }
+                }
+                
+                console.log(`Filtered by tag "${selectedTag}": ${visibleCount} questions found`);
+            }
+
+            function clearTagFilter() {
+                const filterBtn = document.querySelector('.filter-btn');
+                filterBtn.textContent = '🔽 All';
+                
+                let visibleCount = 0;
+                document.querySelectorAll('.question-item').forEach(item => {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                });
+                
+                // Update question count immediately
+                const questionsSubtitle = document.querySelector('.questions-subtitle');
+                if (questionsSubtitle) {
+                    if (visibleCount === 1) {
+                        questionsSubtitle.textContent = '1 question';
+                    } else {
+                        questionsSubtitle.textContent = `${visibleCount} questions`;
+                    }
+                }
+                
+                console.log(`Cleared filter: ${visibleCount} questions visible`);
+            }
+
+            function sortQuestions(sortBy) {
+                const questionsList = document.querySelector('.questions-list');
+                const questions = Array.from(questionsList.children);
+                
+                questions.sort((a, b) => {
+                    switch (sortBy) {
+                        case 'Newest':
+                            return parseInt(a.dataset.time) - parseInt(b.dataset.time);
+                        case 'Oldest':
+                            return parseInt(b.dataset.time) - parseInt(a.dataset.time);
+                        case 'Most Voted':
+                            return parseInt(b.dataset.votes) - parseInt(a.dataset.votes);
+                        case 'Most Answered':
+                            return parseInt(b.dataset.answers) - parseInt(a.dataset.answers);
+                        default:
+                            return 0;
+                    }
+                });
+                
+                // Re-append sorted questions
+                questions.forEach(question => {
+                    questionsList.appendChild(question);
+                });
+            }
+
+            function updateQuestionCount() {
+                const visibleQuestions = document.querySelectorAll('.question-item').filter(item => {
+                    const style = window.getComputedStyle(item);
+                    return style.display !== 'none';
+                });
+                const questionsSubtitle = document.querySelector('.questions-subtitle');
+                if (questionsSubtitle) {
+                    const count = visibleQuestions.length;
+                    if (count === 1) {
+                        questionsSubtitle.textContent = '1 question';
+                    } else {
+                        questionsSubtitle.textContent = `${count} questions`;
+                    }
+                }
+            }
+
+            // Notification bell
+            const notificationBell = document.querySelector('.notification-bell');
+            if (notificationBell) {
+                notificationBell.addEventListener('click', function() {
+                    console.log('Opening notifications');
+                    // Here you would show notification dropdown
+                });
+            }
+
+            // Ask Question buttons
+            const askQuestionBtns = document.querySelectorAll('.btn-primary');
+            askQuestionBtns.forEach(btn => {
+                if (btn.textContent.includes('Ask Question')) {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        window.location.href = 'ask-question.html';
+                    });
+                }
+            });
+
+            // Question title clicks
+            const questionTitles = document.querySelectorAll('.question-title a');
+            questionTitles.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const questionItem = this.closest('.question-item');
+                    const questionId = questionItem.dataset.questionId;
+                    console.log('Opening question:', this.textContent, 'ID:', questionId);
+                    // Navigate to question detail page
+                    window.location.href = `question-detail.html?id=${questionId}&from=home`;
+                });
+            });
+
+            // Tag clicks
+            const tags = document.querySelectorAll('.tag');
+            tags.forEach(tag => {
+                tag.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Filtering by tag:', this.textContent);
+                    // Here you would filter questions by tag
+                });
+            });
+
+            // Sidebar navigation
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            sidebarItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    // If the link has a real href (not just #), allow navigation
+                    if (href && href !== '#') {
+                        // Remove active class from all items
+                        sidebarItems.forEach(i => i.classList.remove('active'));
+                        // Add active class to clicked item
+                        this.classList.add('active');
+                        // Allow the default navigation
+                        return;
+                    }
+                    
+                    // For links with # or no href, prevent default and handle manually
+                    e.preventDefault();
+                    // Remove active class from all items
+                    sidebarItems.forEach(i => i.classList.remove('active'));
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    console.log('Navigating to:', this.textContent.trim());
+                });
+            });
+
+            // Voting system
+            const voteButtons = document.querySelectorAll('.vote-btn');
+            const voteCounts = document.querySelectorAll('.vote-count');
+            
+            // Store user votes in localStorage (replace with database in production)
+            const userVotes = JSON.parse(localStorage.getItem('userVotes') || '{}');
+            
+            // Initialize vote states
+            function initializeVotes() {
+                voteButtons.forEach(btn => {
+                    const questionId = btn.dataset.questionId;
+                    const voteType = btn.dataset.vote;
+                    const userVote = userVotes[questionId];
+                    
+                    if (userVote === voteType) {
+                        btn.classList.add(`voted-${voteType}`);
+                    }
+                });
+            }
+            
+            // Handle vote clicks
+            voteButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const questionId = this.dataset.questionId;
+                    const voteType = this.dataset.vote;
+                    const voteCount = document.querySelector(`[data-question-id="${questionId}"].vote-count`);
+                    const upvoteBtn = document.querySelector(`[data-question-id="${questionId}"][data-vote="up"]`);
+                    const downvoteBtn = document.querySelector(`[data-question-id="${questionId}"][data-vote="down"]`);
+                    
+                    let currentVote = userVotes[questionId];
+                    let currentCount = parseInt(voteCount.textContent);
+                    
+                    // Remove previous vote classes
+                    upvoteBtn.classList.remove('voted-up', 'voted-down');
+                    downvoteBtn.classList.remove('voted-up', 'voted-down');
+                    
+                    // Handle vote logic
+                    if (currentVote === voteType) {
+                        // User is clicking the same vote button - remove vote
+                        delete userVotes[questionId];
+                        if (voteType === 'up') {
+                            currentCount--;
+                        } else {
+                            currentCount++;
+                        }
+                    } else {
+                        // User is changing their vote or voting for the first time
+                        if (currentVote === 'up' && voteType === 'down') {
+                            // Changing from upvote to downvote
+                            currentCount -= 2;
+                        } else if (currentVote === 'down' && voteType === 'up') {
+                            // Changing from downvote to upvote
+                            currentCount += 2;
+                        } else if (voteType === 'up') {
+                            // New upvote
+                            currentCount++;
+                        } else {
+                            // New downvote
+                            currentCount--;
+                        }
+                        
+                        userVotes[questionId] = voteType;
+                        this.classList.add(`voted-${voteType}`);
+                    }
+                    
+                    // Update vote count
+                    voteCount.textContent = currentCount;
+                    
+                    // Update vote count color
+                    voteCount.classList.remove('positive', 'negative');
+                    if (currentCount > 0) {
+                        voteCount.classList.add('positive');
+                    } else if (currentCount < 0) {
+                        voteCount.classList.add('negative');
+                    }
+                    
+                    // Save user votes
+                    localStorage.setItem('userVotes', JSON.stringify(userVotes));
+                    
+                    // Log vote action (replace with API call in production)
+                    console.log(`Voted ${voteType} on question ${questionId}, new count: ${currentCount}`);
+                    
+                    // Here you would integrate with Supabase
+                    // const { data, error } = await supabase
+                    //     .from('votes')
+                    //     .upsert({
+                    //         question_id: questionId,
+                    //         user_id: currentUser.id,
+                    //         vote_type: voteType
+                    //     });
+                });
+            });
+            
+            // Initialize votes on page load
+            initializeVotes();
+            
+            // Initialize question count
+            updateQuestionCount();
+
+            // Simulate real-time updates (you would replace this with actual Supabase subscriptions)
+            setInterval(() => {
+                // Update notification count randomly
+                const badge = document.querySelector('.notification-badge');
+                if (badge && Math.random() > 0.9) {
+                    const currentCount = parseInt(badge.textContent);
+                    badge.textContent = currentCount + 1;
+                }
+            }, 10000);
+
+            // Pagination functionality
+            const paginationBtns = document.querySelectorAll('.pagination-btn');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            const pageBtns = document.querySelectorAll('.page-btn');
+            const paginationInfo = document.querySelector('.pagination-info span');
+
+            let currentPage = 1;
+            const totalPages = 10;
+            const itemsPerPage = 15;
+            const totalItems = 150;
+
+            function updatePagination() {
+                // Update page buttons
+                pageBtns.forEach((btn, index) => {
+                    btn.classList.remove('active');
+                    if (index + 1 === currentPage) {
+                        btn.classList.add('active');
+                    }
+                });
+
+                // Update prev/next buttons
+                prevBtn.disabled = currentPage === 1;
+                nextBtn.disabled = currentPage === totalPages;
+
+                // Update info text
+                const startItem = (currentPage - 1) * itemsPerPage + 1;
+                const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+                paginationInfo.textContent = `Showing ${startItem}-${endItem} of ${totalItems} questions`;
+
+                console.log(`Navigating to page ${currentPage}`);
+                // Here you would load the questions for the current page from Supabase
+            }
+
+            // Page button clicks
+            pageBtns.forEach((btn, index) => {
+                btn.addEventListener('click', function() {
+                    currentPage = index + 1;
+                    updatePagination();
+                });
+            });
+
+            // Previous button click
+            prevBtn.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updatePagination();
+                }
+            });
+
+            // Next button click
+            nextBtn.addEventListener('click', function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    updatePagination();
+                }
+            });
+        });
+
+        // Supabase Integration Functions (to be implemented)
+        // These are placeholder functions showing how you would integrate with Supabase
+
+        async function loadQuestions() {
+            // const { data, error } = await supabase
+            //     .from('questions')
+            //     .select('*, answers(*), users(*)')
+            //     .order('created_at', { ascending: false });
+            
+            console.log('Loading questions from Supabase...');
+        }
+
+        async function searchQuestions(query) {
+            // const { data, error } = await supabase
+            //     .from('questions')
+            //     .select('*, answers(*), users(*)')
+            //     .textSearch('title', query);
+            
+            console.log('Searching questions:', query);
+        }
+
+        async function loadUserNotifications() {
+            // const { data, error } = await supabase
+            //     .from('notifications')
+            //     .select('*')
+            //     .eq('user_id', currentUser.id)
+            //     .eq('read', false);
+            
+            console.log('Loading notifications...');
+        }
+
+        async function incrementQuestionViews(questionId) {
+            // const { data, error } = await supabase
+            //     .from('questions')
+            //     .update({ views: views + 1 })
+            //     .eq('id', questionId);
+            
+            console.log('Incrementing views for question:', questionId);
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            checkAuth();
+            
+            loadQuestions();
+            loadUserNotifications();
+        });
+
+        // Authentication functions
+        function checkAuth() {
+            const isLoggedIn = localStorage.getItem('userLoggedIn') === 'true';
+            const userEmail = localStorage.getItem('userEmail');
+            
+            if (!isLoggedIn) {
+                // Redirect to login page if not authenticated
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Update user avatar with email initial
+            if (userEmail) {
+                const userAvatar = document.getElementById('userAvatar');
+                const userFullName = localStorage.getItem('userFullName');
+                const userUsername = localStorage.getItem('userUsername');
+                
+                // Use full name initial if available, otherwise email initial
+                const initial = userFullName ? userFullName.charAt(0).toUpperCase() : userEmail.charAt(0).toUpperCase();
+                userAvatar.textContent = initial;
+                
+                // Add tooltip with user info
+                userAvatar.title = userFullName ? `${userFullName} (@${userUsername})` : userEmail;
+            }
+        }
+
+        function logout() {
+            // Clear authentication data
+            localStorage.removeItem('userLoggedIn');
+            localStorage.removeItem('userEmail');
+            
+            // Redirect to login page
+            window.location.href = 'login.html';
+        }
+
+        // Logout button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', logout);
+            }
+            
+            // Initialize bookmark states
+            initializeBookmarkStates();
+        });
+
+        // Bookmark functionality
+        function toggleBookmark(questionId) {
+            const bookmarkBtn = document.querySelector(`[data-question-id="${questionId}"].bookmark-btn`);
+            const questionItem = document.querySelector(`[data-question-id="${questionId}"].question-item`);
+            
+            if (bookmarkBtn.classList.contains('bookmarked')) {
+                // Remove bookmark
+                bookmarkBtn.classList.remove('bookmarked');
+                if (questionItem) questionItem.classList.remove('bookmarked');
+                removeBookmarkFromStorage(questionId);
+                console.log('Bookmark removed for question:', questionId);
+            } else {
+                // Add bookmark
+                bookmarkBtn.classList.add('bookmarked');
+                if (questionItem) questionItem.classList.add('bookmarked');
+                addBookmarkToStorage(questionId);
+                console.log('Bookmark added for question:', questionId);
+            }
+        }
+
+        function initializeBookmarkStates() {
+            const bookmarks = JSON.parse(localStorage.getItem('userBookmarks') || '[]');
+            bookmarks.forEach(bookmark => {
+                const bookmarkBtn = document.querySelector(`[data-question-id="${bookmark.id}"].bookmark-btn`);
+                const questionItem = document.querySelector(`[data-question-id="${bookmark.id}"].question-item`);
+                if (bookmarkBtn) {
+                    bookmarkBtn.classList.add('bookmarked');
+                }
+                if (questionItem) {
+                    questionItem.classList.add('bookmarked');
+                }
+            });
+        }
+
+        function addBookmarkToStorage(questionId) {
+            const bookmarks = JSON.parse(localStorage.getItem('userBookmarks') || '[]');
+            const questionData = getQuestionData(questionId);
+            if (questionData && !bookmarks.find(b => b.id === questionId)) {
+                bookmarks.unshift({
+                    ...questionData,
+                    bookmarkedAt: new Date().toISOString()
+                });
+                localStorage.setItem('userBookmarks', JSON.stringify(bookmarks));
+            }
+        }
+
+        function removeBookmarkFromStorage(questionId) {
+            const bookmarks = JSON.parse(localStorage.getItem('userBookmarks') || '[]');
+            const filteredBookmarks = bookmarks.filter(b => b.id !== questionId);
+            localStorage.setItem('userBookmarks', JSON.stringify(filteredBookmarks));
+        }
+
+        function getQuestionData(questionId) {
+            // Sample question data - in a real app, this would come from your database
+            const questionsData = {
+                1: {
+                    id: 1,
+                    title: "How to implement user authentication in React with TypeScript?",
+                    author: "john_dev",
+                    votes: 15,
+                    upvotes: 18,
+                    downvotes: 3,
+                    answers: 3,
+                    views: 1200,
+                    tags: ["react", "typescript", "authentication"],
+                    time: "2 hours ago"
+                },
+                2: {
+                    id: 2,
+                    title: "Best practices for state management in large React applications?",
+                    author: "sarah_frontend",
+                    votes: 8,
+                    upvotes: 10,
+                    downvotes: 2,
+                    answers: 2,
+                    views: 567,
+                    tags: ["react", "state-management", "redux", "context"],
+                    time: "4 hours ago"
+                },
+                3: {
+                    id: 3,
+                    title: "How to optimize performance in Node.js applications?",
+                    author: "mike_backend",
+                    votes: 12,
+                    upvotes: 15,
+                    downvotes: 3,
+                    answers: 5,
+                    views: 890,
+                    tags: ["node.js", "performance", "optimization"],
+                    time: "6 hours ago"
+                },
+                4: {
+                    id: 4,
+                    title: "CSS Grid vs Flexbox: When to use which?",
+                    author: "alex_designer",
+                    votes: 6,
+                    upvotes: 8,
+                    downvotes: 2,
+                    answers: 4,
+                    views: 445,
+                    tags: ["css", "grid", "flexbox", "layout"],
+                    time: "8 hours ago"
+                },
+                5: {
+                    id: 5,
+                    title: "How to implement dark mode toggle in React with CSS variables?",
+                    author: "ui_dev",
+                    votes: 23,
+                    upvotes: 25,
+                    downvotes: 2,
+                    answers: 7,
+                    views: 456,
+                    tags: ["react", "css", "dark-mode"],
+                    time: "1 hour ago"
+                },
+                6: {
+                    id: 6,
+                    title: "What are the differences between async/await and Promises in JavaScript?",
+                    author: "js_learner",
+                    votes: 18,
+                    upvotes: 20,
+                    downvotes: 2,
+                    answers: 4,
+                    views: 234,
+                    tags: ["javascript", "async", "promises"],
+                    time: "3 hours ago"
+                },
+                7: {
+                    id: 7,
+                    title: "How to deploy a React app to AWS S3 with GitHub Actions?",
+                    author: "devops_guru",
+                    votes: 31,
+                    upvotes: 35,
+                    downvotes: 4,
+                    answers: 11,
+                    views: 789,
+                    tags: ["react", "aws", "github-actions", "deployment"],
+                    time: "5 hours ago"
+                }
+            };
+            
+            // If not found in home page data, check if it's a leaderboard question
+            if (!questionsData[questionId]) {
+                // This would be a leaderboard question - return a generic structure
+                // In a real app, you'd fetch this from your database
+                return {
+                    id: questionId,
+                    title: `Question ${questionId}`,
+                    author: "user_" + questionId,
+                    votes: Math.floor(Math.random() * 50) + 1,
+                    upvotes: Math.floor(Math.random() * 60) + 1,
+                    downvotes: Math.floor(Math.random() * 10),
+                    answers: Math.floor(Math.random() * 10) + 1,
+                    views: Math.floor(Math.random() * 1000) + 100,
+                    tags: ["general", "question"],
+                    time: "recently"
+                };
+            }
+            
+            return questionsData[questionId];
+        }
+
+        // Notification Panel Functionality
+        const notificationBtn = document.getElementById('notificationBtn');
+        const notificationPanel = document.getElementById('notificationPanel');
+        const closeNotifications = document.getElementById('closeNotifications');
+        const notificationList = document.getElementById('notificationList');
+
+        // Sample notification data
+        const notifications = [
+            {
+                id: 1,
+                type: 'answer',
+                text: '<strong>sarah_coder</strong> answered your question about React hooks',
+                time: '2 minutes ago',
+                unread: true
+            },
+            {
+                id: 2,
+                type: 'vote',
+                text: 'Your answer received <strong>+5 upvotes</strong>',
+                time: '15 minutes ago',
+                unread: true
+            },
+            {
+                id: 3,
+                type: 'mention',
+                text: '<strong>mike_tech</strong> mentioned you in a comment',
+                time: '1 hour ago',
+                unread: true
+            },
+            {
+                id: 4,
+                type: 'follow',
+                text: '<strong>alex_dev</strong> started following you',
+                time: '2 hours ago',
+                unread: false
+            },
+            {
+                id: 5,
+                type: 'answer',
+                text: '<strong>emma_web</strong> answered your question about CSS Grid',
+                time: '3 hours ago',
+                unread: false
+            }
+        ];
+
+        // Render notifications
+        function renderNotifications() {
+            if (notifications.length === 0) {
+                notificationList.innerHTML = `
+                    <div class="notification-empty">
+                        <div class="empty-icon">🔔</div>
+                        <p>No notifications yet</p>
+                    </div>
+                `;
+                return;
+            }
+
+            notificationList.innerHTML = notifications.map(notification => `
+                <div class="notification-item ${notification.unread ? 'unread' : ''}" data-id="${notification.id}">
+                    <div class="notification-icon ${notification.type}">
+                        ${getNotificationIcon(notification.type)}
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-text">${notification.text}</div>
+                        <div class="notification-time">${notification.time}</div>
+                    </div>
+                    ${notification.unread ? '<div class="notification-unread"></div>' : ''}
+                </div>
+            `).join('');
+        }
+
+        // Get notification icon based on type
+        function getNotificationIcon(type) {
+            switch(type) {
+                case 'answer': return '💬';
+                case 'vote': return '👍';
+                case 'mention': return '@';
+                case 'follow': return '👥';
+                default: return '🔔';
+            }
+        }
+
+        // Update notification badge count
+        function updateNotificationBadge() {
+            const unreadCount = notifications.filter(n => n.unread).length;
+            const badge = notificationBtn.querySelector('.notification-badge');
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // Toggle notification panel
+        notificationBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            notificationPanel.classList.toggle('show');
+            renderNotifications();
+        });
+
+        // Close notification panel
+        closeNotifications.addEventListener('click', function(e) {
+            e.stopPropagation();
+            notificationPanel.classList.remove('show');
+        });
+
+        // Close panel when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!notificationPanel.contains(e.target) && !notificationBtn.contains(e.target)) {
+                notificationPanel.classList.remove('show');
+            }
+        });
+
+        // Mark notification as read
+        notificationList.addEventListener('click', function(e) {
+            const notificationItem = e.target.closest('.notification-item');
+            if (notificationItem) {
+                const notificationId = parseInt(notificationItem.dataset.id);
+                const notification = notifications.find(n => n.id === notificationId);
+                if (notification && notification.unread) {
+                    notification.unread = false;
+                    notificationItem.classList.remove('unread');
+                    notificationItem.querySelector('.notification-unread')?.remove();
+                    updateNotificationBadge();
+                }
+            }
+        });
+
+        // Mark all as read
+        document.querySelector('.mark-all-read').addEventListener('click', function(e) {
+            e.preventDefault();
+            notifications.forEach(notification => {
+                notification.unread = false;
+            });
+            renderNotifications();
+            updateNotificationBadge();
+        });
+
+        // Initialize notifications
+        renderNotifications();
+        updateNotificationBadge();
+    </script>
+</body>
+</html>

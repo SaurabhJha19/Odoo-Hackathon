@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - StackIt – A Minimal Q&A Forum Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body class="signup-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo">
+                    <span class="logo-icon">💻</span>
+                    <span class="logo-text">StackIt </span>
+                </div>
+                <h1>Create your account</h1>
+                <p>Join our developer community today</p>
+            </div>
+
+            <form class="login-form" id="signupForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🏷️</span>
+                        <input type="text" id="username" name="username" placeholder="Choose a username" required>
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="email">Email address</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">📧</span>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="password" name="password" placeholder="Create a password" required>
+                        <button type="button" class="password-toggle" id="passwordToggle">
+                            <span class="eye-icon">👁️</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                        <button type="button" class="password-toggle" id="confirmPasswordToggle">
+                            <span class="eye-icon">👁️</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                        <span class="checkmark"></span>
+                        I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="terms-link">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <span class="btn-text">Create Account</span>
+                    <span class="btn-loader" style="display: none;">⏳</span>
+                </button>
+            </form>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <div class="social-login">
+                <button class="social-btn google-btn">
+                    <span class="social-icon"></span>
+                    Sign up with Google
+                </button>
+                <button class="social-btn github-btn">
+                    <span class="social-icon"></span>
+                    Sign up with GitHub
+                </button>
+            </div>
+
+            <div class="signup-link">
+                <p>Already have an account? <a href="login.html" id="loginLink">Sign in</a></p>
+            </div>
+        </div>
+
+        <div class="login-footer">
+            <p>&copy; 2024 StackIt . All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const signupForm = document.getElementById('signupForm');
+            const passwordToggle = document.getElementById('passwordToggle');
+            const confirmPasswordToggle = document.getElementById('confirmPasswordToggle');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const signupBtn = document.querySelector('.login-btn');
+            const btnText = document.querySelector('.btn-text');
+            const btnLoader = document.querySelector('.btn-loader');
+
+            // Password visibility toggle for password field
+            passwordToggle.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                const eyeIcon = this.querySelector('.eye-icon');
+                eyeIcon.textContent = type === 'password' ? '👁️' : '🙈';
+            });
+
+            // Password visibility toggle for confirm password field
+            confirmPasswordToggle.addEventListener('click', function() {
+                const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                confirmPasswordInput.setAttribute('type', type);
+                
+                const eyeIcon = this.querySelector('.eye-icon');
+                eyeIcon.textContent = type === 'password' ? '👁️' : '🙈';
+            });
+
+            // Form submission
+            signupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const fullName = document.getElementById('fullName').value;
+                const email = document.getElementById('email').value;
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const agreeTerms = document.getElementById('agreeTerms').checked;
+
+                // Validation
+                if (password !== confirmPassword) {
+                    showError('Passwords do not match');
+                    return;
+                }
+
+                if (password.length < 6) {
+                    showError('Password must be at least 6 characters long');
+                    return;
+                }
+
+                if (!agreeTerms) {
+                    showError('Please agree to the Terms of Service and Privacy Policy');
+                    return;
+                }
+
+                // Show loading state
+                btnText.style.display = 'none';
+                btnLoader.style.display = 'inline-block';
+                signupBtn.disabled = true;
+
+                // Simulate API call (replace with actual Supabase auth)
+                setTimeout(() => {
+                    console.log('Signup attempt:', { fullName, email, username, password, agreeTerms });
+                    
+                    // Here you would integrate with Supabase Auth
+                    // const { data, error } = await supabase.auth.signUp({
+                    //     email: email,
+                    //     password: password,
+                    //     options: {
+                    //         data: {
+                    //             full_name: fullName,
+                    //             username: username
+                    //         }
+                    //     }
+                    // });
+
+                    // For demo purposes, simulate successful signup
+                    if (fullName && email && username && password) {
+                        // Store user session (replace with actual session management)
+                        localStorage.setItem('userLoggedIn', 'true');
+                        localStorage.setItem('userEmail', email);
+                        localStorage.setItem('userFullName', fullName);
+                        localStorage.setItem('userUsername', username);
+                        
+                        // Redirect to home page
+                        window.location.href = 'home.html';
+                    } else {
+                        showError('Please fill in all required fields');
+                    }
+
+                    // Reset button state
+                    btnText.style.display = 'inline-block';
+                    btnLoader.style.display = 'none';
+                    signupBtn.disabled = false;
+                }, 1500);
+            });
+
+            // Social signup buttons
+            document.querySelector('.google-btn').addEventListener('click', function() {
+                console.log('Google signup clicked');
+                // Here you would integrate with Supabase Google OAuth
+                // const { data, error } = await supabase.auth.signInWithOAuth({
+                //     provider: 'google'
+                // });
+            });
+
+            document.querySelector('.github-btn').addEventListener('click', function() {
+                console.log('GitHub signup clicked');
+                // Here you would integrate with Supabase GitHub OAuth
+                // const { data, error } = await supabase.auth.signInWithOAuth({
+                //     provider: 'github'
+                // });
+            });
+
+            // Terms links
+            document.querySelectorAll('.terms-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Navigate to terms/privacy page');
+                    // Here you would navigate to the terms/privacy pages
+                    // window.location.href = 'terms.html';
+                });
+            });
+
+            function showError(message) {
+                // Remove existing error messages
+                const existingError = document.querySelector('.error-message');
+                if (existingError) {
+                    existingError.remove();
+                }
+
+                // Create error message element
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.textContent = message;
+                
+                // Insert after form
+                signupForm.parentNode.insertBefore(errorDiv, signupForm.nextSibling);
+                
+                // Remove after 3 seconds
+                setTimeout(() => {
+                    errorDiv.remove();
+                }, 3000);
+            }
+
+            // Check if user is already logged in
+            if (localStorage.getItem('userLoggedIn') === 'true') {
+                window.location.href = 'home.html';
+            }
+        });
+    </script>
+</body>
+</html> 

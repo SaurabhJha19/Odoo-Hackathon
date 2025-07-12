@@ -1,0 +1,231 @@
+/* Users Page Styles - Matching Homepage Structure */
+
+/* User Items - Similar to Question Items */
+.users-list {
+    margin-top: 20px;
+}
+
+.user-item {
+    display: flex;
+    background: white;
+    border: 1px solid #e1e5e9;
+    border-radius: 25px;
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+}
+
+.user-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #7c1cdc;
+}
+
+.user-item:last-child {
+    margin-bottom: 0;
+}
+
+/* User Stats Section - Similar to Question Stats */
+.user-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+    min-width: 120px;
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 12px;
+    border: 3px solid #7c1cdc;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Stats Grid - Same as Question Stats */
+.user-stats .stats-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.user-stats .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    min-width: 80px;
+}
+
+.user-stats .stat-item:hover {
+    background: #e9ecef;
+}
+
+.user-stats .stat-number-small {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1;
+}
+
+.user-stats .stat-label-small {
+    font-size: 11px;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+
+/* User Content Section - Similar to Question Content */
+.user-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+.user-title a {
+    color: #333;
+    text-decoration: none;
+}
+
+.user-title a:hover {
+    color: #7c1cdc;
+}
+
+.user-username {
+    color: #6b7280;
+    font-size: 14px;
+    margin: 0 0 12px 0;
+}
+
+.user-reputation {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.reputation-score {
+    color: #7c1cdc;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.join-date {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.user-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.user-tags .tag {
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.user-tags .tag:hover {
+    background: #1976d2;
+    color: white;
+}
+
+.user-tags .tag.more {
+    background: #f5f5f5;
+    color: #6b7280;
+    cursor: default;
+}
+
+.user-tags .tag.more:hover {
+    background: #f5f5f5;
+    color: #6b7280;
+}
+
+.user-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.user-last-active {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .user-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .user-stats {
+        margin-right: 0;
+        margin-bottom: 16px;
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .user-stats .stats-grid {
+        flex-direction: row;
+        gap: 12px;
+    }
+
+    .user-reputation {
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .user-meta {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-item {
+        padding: 16px;
+    }
+
+    .user-stats {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .user-stats .stats-grid {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .user-title {
+        font-size: 16px;
+    }
+} 

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Question - StackIt – A Minimal Q&A Forum Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="ask-question.css">
+</head>
+<body>
+    <div class="ask-question-container">
+        <!-- Header -->
+        <header class="ask-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <button class="back-btn" id="backBtn">
+                        <span>←</span>
+                    </button>
+                    <h1>Ask Question</h1>
+                </div>
+                <div class="header-right">
+                    <div class="word-count">
+                        <span id="wordCount">0</span>/1000
+                    </div>
+                    <button class="post-btn" id="postBtn" disabled>
+                        <span class="btn-text">Post Question</span>
+                        <span class="btn-loader" style="display: none;">⏳</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="ask-main">
+            <div class="question-composer">
+                <!-- User Info -->
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">👤</div>
+                    <div class="user-details">
+                        <div class="user-name" id="userName">User</div>
+                        <div class="post-visibility">
+                            <span class="visibility-icon">🌍</span>
+                            <span>Everyone can answer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Title Input -->
+                <div class="question-title-container">
+                    <label for="questionTitle" class="title-label">Question Title</label>
+                    <div class="title-input-wrapper">
+                        <input type="text" id="questionTitle" placeholder="Enter a clear, concise title for your question..." maxlength="50">
+                        <div class="title-char-count">
+                            <span id="titleCharCount">0</span>/50
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Description Input -->
+                <div class="question-description-container">
+                    <label for="questionDescription" class="description-label">Question Description</label>
+                    <div class="description-input" id="questionDescription" contenteditable="true" placeholder="Provide detailed context, code examples, and any relevant information..."></div>
+                    
+                    <!-- Rich Text Toolbar -->
+                    <div class="rich-text-toolbar">
+                        <div class="toolbar-group">
+                            <button class="toolbar-btn" data-command="bold" title="Bold">
+                                <span>B</span>
+                            </button>
+                            <button class="toolbar-btn" data-command="italic" title="Italic">
+                                <span>I</span>
+                            </button>
+                            <button class="toolbar-btn" data-command="underline" title="Underline">
+                                <span>U</span>
+                            </button>
+                        </div>
+                        
+                        <div class="toolbar-group">
+                            <button class="toolbar-btn" data-command="insertUnorderedList" title="Bullet List">
+                                <span>•</span>
+                            </button>
+                            <button class="toolbar-btn" data-command="insertOrderedList" title="Numbered List">
+                                <span>1.</span>
+                            </button>
+                            <button class="toolbar-btn" data-command="createLink" title="Add Link">
+                                <span>🔗</span>
+                            </button>
+                        </div>
+                        
+                        <div class="toolbar-group">
+                            <button class="toolbar-btn" data-command="formatBlock" data-value="h3" title="Heading">
+                                <span>H</span>
+                            </button>
+                            <button class="toolbar-btn" data-command="insertCode" title="Code Block">
+                                <span>{ }</span>
+                            </button>
+                            <button class="toolbar-btn" data-command="insertQuote" title="Quote">
+                                <span>"</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Media Upload Area -->
+                <div class="media-upload-area" id="mediaUploadArea" style="display: none;">
+                    <div class="upload-preview">
+                        <img id="imagePreview" src="" alt="" style="display: none;">
+                        <div class="upload-info">
+                            <span class="upload-text">Image uploaded</span>
+                            <button class="remove-media" id="removeMedia">×</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="action-bar">
+                    <div class="action-buttons">
+                        <button class="action-btn" id="imageBtn" title="Add Image">
+                            <span>📷</span>
+                        </button>
+                        <button class="action-btn" id="codeBtn" title="Add Code">
+                            <span>💻</span>
+                        </button>
+                        <button class="action-btn" id="linkBtn" title="Add Link">
+                            <span>🔗</span>
+                        </button>
+                        <button class="action-btn" id="emojiBtn" title="Add Emoji">
+                            <span>😊</span>
+                        </button>
+                    </div>
+                    
+                    <div class="action-right">
+                        <div class="visibility-dropdown">
+                            <button class="visibility-btn" id="visibilityBtn">
+                                <span class="visibility-icon">🌍</span>
+                                <span>Everyone</span>
+                                <span class="dropdown-arrow">▼</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tags Section -->
+                <div class="tags-section">
+                    <div class="tags-header">
+                        <h3>Add Tags</h3>
+                        <span class="tags-subtitle">Help others find your question</span>
+                    </div>
+                    <div class="tags-input-container">
+                        <div class="tags-display" id="tagsDisplay"></div>
+                        <input type="text" id="tagInput" placeholder="Add tags (e.g., javascript, react, python)" maxlength="20">
+                    </div>
+                    <div class="suggested-tags">
+                        <span class="suggested-label">Popular tags:</span>
+                        <button class="suggested-tag" data-tag="javascript">javascript</button>
+                        <button class="suggested-tag" data-tag="react">react</button>
+                        <button class="suggested-tag" data-tag="python">python</button>
+                        <button class="suggested-tag" data-tag="nodejs">nodejs</button>
+                        <button class="suggested-tag" data-tag="css">css</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Hidden file input -->
+        <input type="file" id="imageInput" accept="image/*" style="display: none;">
+    </div>
+
+    <!-- Emoji Picker Modal -->
+    <div class="emoji-modal" id="emojiModal" style="display: none;">
+        <div class="emoji-content">
+            <div class="emoji-header">
+                <h3>Choose Emoji</h3>
+                <button class="close-emoji" id="closeEmoji">×</button>
+            </div>
+            <div class="emoji-grid">
+                <button class="emoji-btn" data-emoji="😊">😊</button>
+                <button class="emoji-btn" data-emoji="👍">👍</button>
+                <button class="emoji-btn" data-emoji="❤️">❤️</button>
+                <button class="emoji-btn" data-emoji="🎉">🎉</button>
+                <button class="emoji-btn" data-emoji="🔥">🔥</button>
+                <button class="emoji-btn" data-emoji="💡">💡</button>
+                <button class="emoji-btn" data-emoji="🚀">🚀</button>
+                <button class="emoji-btn" data-emoji="⚡">⚡</button>
+                <button class="emoji-btn" data-emoji="🎯">🎯</button>
+                <button class="emoji-btn" data-emoji="✨">✨</button>
+                <button class="emoji-btn" data-emoji="💪">💪</button>
+                <button class="emoji-btn" data-emoji="🎨">🎨</button>
+                <button class="emoji-btn" data-emoji="🔧">🔧</button>
+                <button class="emoji-btn" data-emoji="📚">📚</button>
+                <button class="emoji-btn" data-emoji="🎓">🎓</button>
+                <button class="emoji-btn" data-emoji="🏆">🏆</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            if (localStorage.getItem('userLoggedIn') !== 'true') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Initialize user info
+            const userEmail = localStorage.getItem('userEmail');
+            const userFullName = localStorage.getItem('userFullName');
+            const userUsername = localStorage.getItem('userUsername');
+            
+            const userAvatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+            
+            if (userFullName) {
+                userName.textContent = userFullName;
+                userAvatar.textContent = userFullName.charAt(0).toUpperCase();
+            } else if (userEmail) {
+                userName.textContent = userEmail;
+                userAvatar.textContent = userEmail.charAt(0).toUpperCase();
+            }
+
+            // Elements
+            const questionTitle = document.getElementById('questionTitle');
+            const questionDescription = document.getElementById('questionDescription');
+            const titleCharCount = document.getElementById('titleCharCount');
+            const wordCount = document.getElementById('wordCount');
+            const postBtn = document.getElementById('postBtn');
+            const backBtn = document.getElementById('backBtn');
+            const imageBtn = document.getElementById('imageBtn');
+            const imageInput = document.getElementById('imageInput');
+            const mediaUploadArea = document.getElementById('mediaUploadArea');
+            const imagePreview = document.getElementById('imagePreview');
+            const removeMedia = document.getElementById('removeMedia');
+            const emojiBtn = document.getElementById('emojiBtn');
+            const emojiModal = document.getElementById('emojiModal');
+            const closeEmoji = document.getElementById('closeEmoji');
+            const tagInput = document.getElementById('tagInput');
+            const tagsDisplay = document.getElementById('tagsDisplay');
+            const suggestedTags = document.querySelectorAll('.suggested-tag');
+
+            // Rich text toolbar
+            const toolbarBtns = document.querySelectorAll('.toolbar-btn');
+
+            // Variables
+            let tags = [];
+            let uploadedImage = null;
+
+            // Title character count
+            function updateTitleCharCount() {
+                const title = questionTitle.value;
+                const count = title.length;
+                titleCharCount.textContent = count;
+                
+                // Update color based on character count
+                if (count > 40) {
+                    titleCharCount.style.color = '#f59e0b';
+                } else if (count > 45) {
+                    titleCharCount.style.color = '#dc2626';
+                } else {
+                    titleCharCount.style.color = '#6b7280';
+                }
+                
+                updatePostButtonState();
+            }
+
+            // Word count and validation
+            function updateWordCount() {
+                const text = questionDescription.textContent || questionDescription.innerText;
+                const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+                const count = words.length;
+                
+                wordCount.textContent = count;
+                
+                updatePostButtonState();
+            }
+
+            // Update post button state based on both title and description
+            function updatePostButtonState() {
+                const title = questionTitle.value.trim();
+                const descriptionText = questionDescription.textContent || questionDescription.innerText;
+                const descriptionWords = descriptionText.trim().split(/\s+/).filter(word => word.length > 0);
+                const wordCountNum = descriptionWords.length;
+                
+                // Check if both title and description have content
+                const hasTitle = title.length > 0;
+                const hasDescription = wordCountNum > 0;
+                const withinWordLimit = wordCountNum <= 1000;
+                
+                if (hasTitle && hasDescription && withinWordLimit) {
+                    postBtn.disabled = false;
+                    wordCount.style.color = wordCountNum > 800 ? '#f59e0b' : '#6b7280';
+                } else {
+                    postBtn.disabled = true;
+                    wordCount.style.color = wordCountNum > 1000 ? '#dc2626' : '#6b7280';
+                }
+            }
+
+            // Rich text formatting
+            toolbarBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const command = this.dataset.command;
+                    const value = this.dataset.value;
+                    
+                    document.execCommand('styleWithCSS', false, true);
+                    
+                    switch(command) {
+                        case 'bold':
+                        case 'italic':
+                        case 'underline':
+                            document.execCommand(command, false, null);
+                            break;
+                        case 'insertUnorderedList':
+                        case 'insertOrderedList':
+                            document.execCommand(command, false, null);
+                            break;
+                        case 'createLink':
+                            const url = prompt('Enter URL:');
+                            if (url) {
+                                document.execCommand(command, false, url);
+                            }
+                            break;
+                        case 'formatBlock':
+                            document.execCommand(command, false, value);
+                            break;
+                        case 'insertCode':
+                            const code = prompt('Enter code:');
+                            if (code) {
+                                const codeBlock = `<pre><code>${code}</code></pre>`;
+                                document.execCommand('insertHTML', false, codeBlock);
+                            }
+                            break;
+                        case 'insertQuote':
+                            const quote = prompt('Enter quote:');
+                            if (quote) {
+                                const quoteBlock = `<blockquote>${quote}</blockquote>`;
+                                document.execCommand('insertHTML', false, quoteBlock);
+                            }
+                            break;
+                    }
+                    
+                    questionDescription.focus();
+                });
+            });
+
+            // Image upload
+            imageBtn.addEventListener('click', () => {
+                imageInput.click();
+            });
+
+            imageInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                        mediaUploadArea.style.display = 'block';
+                        uploadedImage = file;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            removeMedia.addEventListener('click', () => {
+                imagePreview.style.display = 'none';
+                mediaUploadArea.style.display = 'none';
+                uploadedImage = null;
+                imageInput.value = '';
+            });
+
+            // Emoji picker
+            emojiBtn.addEventListener('click', () => {
+                emojiModal.style.display = 'flex';
+            });
+
+            closeEmoji.addEventListener('click', () => {
+                emojiModal.style.display = 'none';
+            });
+
+            document.querySelectorAll('.emoji-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const emoji = btn.dataset.emoji;
+                    const selection = window.getSelection();
+                    const range = selection.getRangeAt(0);
+                    range.deleteContents();
+                    range.insertNode(document.createTextNode(emoji));
+                    emojiModal.style.display = 'none';
+                    questionDescription.focus();
+                    updateWordCount();
+                });
+            });
+
+            // Tags functionality
+            tagInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ',') {
+                    e.preventDefault();
+                    const tag = this.value.trim().toLowerCase();
+                    if (tag && !tags.includes(tag) && tags.length < 5) {
+                        addTag(tag);
+                        this.value = '';
+                    }
+                }
+            });
+
+            suggestedTags.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tag = btn.dataset.tag;
+                    if (!tags.includes(tag) && tags.length < 5) {
+                        addTag(tag);
+                    }
+                });
+            });
+
+            function addTag(tag) {
+                tags.push(tag);
+                updateTagsDisplay();
+            }
+
+            function removeTag(tag) {
+                tags = tags.filter(t => t !== tag);
+                updateTagsDisplay();
+            }
+
+            function updateTagsDisplay() {
+                tagsDisplay.innerHTML = '';
+                tags.forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'tag-item';
+                    tagElement.innerHTML = `
+                        <span class="tag-text">${tag}</span>
+                        <button class="remove-tag" onclick="removeTag('${tag}')">×</button>
+                    `;
+                    tagsDisplay.appendChild(tagElement);
+                });
+            }
+
+            // Post question
+            postBtn.addEventListener('click', function() {
+                const title = questionTitle.value.trim();
+                const descriptionText = questionDescription.innerHTML;
+                const wordCountNum = parseInt(wordCount.textContent);
+                
+                if (!title) {
+                    alert('Please enter a title for your question');
+                    return;
+                }
+                
+                if (wordCountNum === 0) {
+                    alert('Please enter a description for your question');
+                    return;
+                }
+                
+                if (wordCountNum > 1000) {
+                    alert('Description is too long. Please keep it under 1000 words.');
+                    return;
+                }
+
+                // Show loading state
+                const btnText = this.querySelector('.btn-text');
+                const btnLoader = this.querySelector('.btn-loader');
+                btnText.style.display = 'none';
+                btnLoader.style.display = 'inline-block';
+                this.disabled = true;
+
+                // Simulate API call
+                setTimeout(() => {
+                    console.log('Posting question:', {
+                        title: title,
+                        description: descriptionText,
+                        tags: tags,
+                        image: uploadedImage,
+                        wordCount: wordCountNum
+                    });
+
+                    // Here you would integrate with Supabase
+                    // const { data, error } = await supabase
+                    //     .from('questions')
+                    //     .insert({
+                    //         title: questionText,
+                    //         content: questionText,
+                    //         tags: tags,
+                    //         user_id: currentUser.id
+                    //     });
+
+                    // Reset form
+                    questionTitle.value = '';
+                    questionDescription.innerHTML = '';
+                    tags = [];
+                    updateTagsDisplay();
+                    tagInput.value = '';
+                    if (uploadedImage) {
+                        removeMedia.click();
+                    }
+                    updateTitleCharCount();
+                    updateWordCount();
+
+                    // Reset button
+                    btnText.style.display = 'inline-block';
+                    btnLoader.style.display = 'none';
+                    this.disabled = true;
+
+                    // Show success popup
+                    showSuccessPopup();
+                }, 1500);
+            });
+
+            // Success popup function
+            function showSuccessPopup() {
+                // Create popup overlay
+                const popupOverlay = document.createElement('div');
+                popupOverlay.className = 'success-popup-overlay';
+                popupOverlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 10000;
+                    animation: fadeIn 0.3s ease;
+                `;
+
+                // Create popup content
+                const popupContent = document.createElement('div');
+                popupContent.className = 'success-popup-content';
+                popupContent.style.cssText = `
+                    background: white;
+                    border-radius: 12px;
+                    padding: 30px;
+                    text-align: center;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                    max-width: 400px;
+                    width: 90%;
+                    animation: slideIn 0.3s ease;
+                `;
+
+                // Add success icon and message
+                popupContent.innerHTML = `
+                    <div style="font-size: 48px; margin-bottom: 20px;">✅</div>
+                    <h2 style="color: #333; margin-bottom: 10px; font-size: 24px;">Success!</h2>
+                    <p style="color: #666; margin-bottom: 20px; font-size: 16px;">Your question is posted</p>
+                    <button id="continueBtn" style="
+                        background: #7c1cdc;
+                        color: white;
+                        border: none;
+                        padding: 12px 24px;
+                        border-radius: 6px;
+                        font-size: 16px;
+                        cursor: pointer;
+                        transition: background 0.2s ease;
+                    ">Continue</button>
+                `;
+
+                // Add styles for animations
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes fadeIn {
+                        from { opacity: 0; }
+                        to { opacity: 1; }
+                    }
+                    @keyframes slideIn {
+                        from { transform: translateY(-20px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                    #continueBtn:hover {
+                        background: #3367d6 !important;
+                    }
+                `;
+                document.head.appendChild(style);
+
+                // Append popup to body
+                popupOverlay.appendChild(popupContent);
+                document.body.appendChild(popupOverlay);
+
+                // Handle continue button click
+                setTimeout(() => {
+                    const continueBtn = document.getElementById('continueBtn');
+                    continueBtn.addEventListener('click', () => {
+                        // Remove popup
+                        document.body.removeChild(popupOverlay);
+                        // Redirect to home page
+                        window.location.href = 'home.html';
+                    });
+
+                    // Also allow clicking outside to continue
+                    popupOverlay.addEventListener('click', (e) => {
+                        if (e.target === popupOverlay) {
+                            document.body.removeChild(popupOverlay);
+                            window.location.href = 'home.html';
+                        }
+                    });
+                }, 100);
+            }
+
+            // Back button
+            backBtn.addEventListener('click', () => {
+                const title = questionTitle.value.trim();
+                const description = questionDescription.textContent.trim();
+                if (title || description || tags.length > 0 || uploadedImage) {
+                    if (confirm('Are you sure you want to leave? Your question will be lost.')) {
+                        window.location.href = 'home.html';
+                    }
+                } else {
+                    window.location.href = 'home.html';
+                }
+            });
+
+            // Event listeners
+            questionTitle.addEventListener('input', updateTitleCharCount);
+            questionDescription.addEventListener('input', updateWordCount);
+            questionDescription.addEventListener('paste', updateWordCount);
+            questionDescription.addEventListener('keydown', updateWordCount);
+
+            // Focus on title input
+            questionTitle.focus();
+        });
+    </script>
+</body>
+</html> 
